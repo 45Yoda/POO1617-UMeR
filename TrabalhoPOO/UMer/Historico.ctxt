@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Historico
+comment1.params=
+comment1.target=Historico()
+comment2.params=nome
+comment2.target=Historico(java.lang.String)
+numComments=3

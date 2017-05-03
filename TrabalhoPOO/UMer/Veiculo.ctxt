@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=Veiculo
+comment0.text=\r\n\ Classe\ abstrata\ Veiculo\ -\ escreva\ a\ descri\u00E7\u00E3o\ da\ classe\ aqui\r\n\ \r\n\ @author\ (seu\ nome\ aqui)\r\n\ @version\ (vers\u00E3o\ ou\ data)\r\n
+comment1.params=
+comment1.target=Veiculo()
+comment2.params=matricula
+comment2.target=Veiculo(java.lang.String)
+comment3.params=v
+comment3.target=Veiculo(Veiculo)
+comment4.params=
+comment4.target=java.lang.String\ getMat()
+comment5.params=matricula
+comment5.target=void\ setMat(java.lang.String)
+numComments=6
