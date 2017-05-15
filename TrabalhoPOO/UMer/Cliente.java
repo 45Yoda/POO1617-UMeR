@@ -1,7 +1,9 @@
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cliente extends Utilizador{
    
-   private Ponto2D localizacao;
+   private Localizacao localizacao;
    private Historico viagens;
    
    //Construtores
@@ -11,7 +13,7 @@ public class Cliente extends Utilizador{
        viagens = null;
    }
    
-   public Cliente(String email,String nome, String pass, String morada, String data, Ponto2D local, Historico viagem){
+   public Cliente(String email,String nome, String pass, String morada, String data, Localizacao local, Historico viagem){
        super(email,nome,pass,morada,data);
        this.localizacao = local;
        this.viagens = viagem;
@@ -25,8 +27,8 @@ public class Cliente extends Utilizador{
    
    //gets
    
-   public Ponto2D getLocalizacao(){
-       return (Ponto2D) this.localizacao;
+   public Localizacao getLocalizacao(){
+       return (Localizacao) this.localizacao;
    }
    
    public Historico getViagens(){
@@ -34,15 +36,21 @@ public class Cliente extends Utilizador{
    }
    
    //sets
-   public void setLocalizacao(Ponto2D p){
+   public void setLocalizacao(Localizacao p){
        this.localizacao = p.clone();
    }
    
    public void setViagem(Historico h){
-       this.viagens.add(h.clone());
+      this.viagens = new Historico(h.clone());
    }
    
+   //Métodos
+ 
+   
+   
+   
    //Método clone
+
    public Cliente clone(){
        return new Cliente();
    }

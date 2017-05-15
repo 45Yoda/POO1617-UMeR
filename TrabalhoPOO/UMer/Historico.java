@@ -1,9 +1,10 @@
 
 import java.util.HashMap;
 import java.util.Map;
+import static java.util.stream.Collectors.toMap;
 
 public class Historico{
-    private Map<Ponto2D,Ponto2D> viagem;
+    private Map<Localizacao,Localizacao> viagem;
     private String nomeCondut;
     
     
@@ -12,10 +13,10 @@ public class Historico{
         this.viagem = new HashMap<>();
     }
     
-    public Historico(String nome, Map<Ponto2D,Ponto2D> viagem){
+    public Historico(String nome, Map<Localizacao,Localizacao> viagem){
         this.nomeCondut = nome;
-        this.viagem = new HashMap<Ponto2D,Ponto2D>();
-        setViagem(viagem);
+        this.viagem = new HashMap<Localizacao,Localizacao>();
+        setHistorico(viagem);
     }
     
     public Historico(Historico c){
@@ -27,13 +28,13 @@ public class Historico{
         return nomeCondut;
     }
     
-    private Map<Ponto2D,Ponto2D> getViagem(){
+    public Map<Localizacao,Localizacao> getViagem(){
         return this.viagem.entrySet()
                           .stream()
                           .collect(toMap(e->e.getKey(),e->e.getValue().clone()));
     }
     
-    private void setViagem(Map<Ponto2D,Ponto2D> viagem){
+    public void setHistorico(Map<Localizacao,Localizacao> viagem){
         this.viagem = viagem.entrySet()
                             .stream()
                             .collect(toMap(e->e.getKey(),e->e.getValue().clone()));
@@ -43,7 +44,7 @@ public class Historico{
         return this.viagem.size();
     }
     
-    public void adiciona(Ponto2D inicio, Ponto2D fim){
+    public void adiciona(Localizacao inicio, Localizacao fim){
         this.viagem.put(inicio,fim);
     }
     
@@ -58,7 +59,7 @@ public class Historico{
             return false;
         Historico hist = (Historico) o;
         return hist.getViagem().equals(viagem) &&
-               hist.getNomeCondt().equals(nomeCondut);
+               hist.getNomeCondut().equals(nomeCondut);
     }
     
     public String toString(){

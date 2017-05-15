@@ -1,22 +1,22 @@
 
-public class Ligeiro extends Veiculo{
+public class Carrinha extends Veiculo{
 
    
-   public Ligeiro(){
+   public Carrinha(){
        super();
    }
    
-   public Ligeiro(int vMed, int preco, int factorF, String matricula){
+   public Carrinha(int vMed, int preco, int factorF, String matricula){
        super(vMed,preco,factorF,matricula);
        
    }
    
-   public Ligeiro(Ligeiro l){
+   public Carrinha(Carrinha l){
        super(l);
    }
    
-   public Ligeiro clone(){
-       return new Ligeiro();
+   public Carrinha clone(){
+       return new Carrinha();
    }
    
    public boolean equals(Object o){
@@ -26,7 +26,7 @@ public class Ligeiro extends Veiculo{
        if((o==null) || o.getClass() != this.getClass()){
            return false;
        }
-       Ligeiro l = (Ligeiro) o;
+       Carrinha l = (Carrinha) o;
        return super.equals(o);
    }
     
@@ -37,3 +37,4 @@ public class Ligeiro extends Veiculo{
        return sb.toString();
    }
 }
+

@@ -23,7 +23,7 @@ public class Empresa{
     }
     
     public Empresa(Empresa emp){
-        this.nomeEmpresa = emp.getNomeEmp();
+        this.nomeEmpresa = emp.getNomeEmpresa();
         this.taxis = emp.getTaxis();
         this.nveiculos = emp.getNVeiculos();
         this.capacidade = emp.getCapacidade();
@@ -38,7 +38,7 @@ public class Empresa{
         Veiculo[] aux = new Veiculo[taxis.length];
         for(int i =0;i<taxis.length;i++)
             if(i<nveiculos)
-                aux[i] = taxis[i].clone();
+                aux[i] = taxis[i];
             else
                 aux[i] = taxis[i];
                 
@@ -72,7 +72,7 @@ public class Empresa{
     //Métodos auxiliares
     public void insereVeiculo(Veiculo v){
         if(!existeVeiculo(v) && nveiculos < taxis.length){
-            taxis[nveiculos++] = v.clone();
+            taxis[nveiculos++] = v;
         }
     }
     
