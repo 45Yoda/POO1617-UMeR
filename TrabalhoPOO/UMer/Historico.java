@@ -2,50 +2,46 @@
 import java.util.HashMap;
 import java.util.Map;
 import static java.util.stream.Collectors.toMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Historico{
-    private Map<Localizacao,Localizacao> viagem;
-    private String nomeCondut;
+    private List<Viagem> viagens;
     
     
     public Historico(){
-        this.nomeCondut = " ";
-        this.viagem = new HashMap<>();
+        this.viagens = new ArrayList<Viagem>();
     }
     
-    public Historico(String nome, Map<Localizacao,Localizacao> viagem){
-        this.nomeCondut = nome;
-        this.viagem = new HashMap<Localizacao,Localizacao>();
-        setHistorico(viagem);
+    public Historico(List<Viagem> viagens){
+        this.viagens = new ArrayList<Viagem>();
+        setViagens(viagens);
     }
     
     public Historico(Historico c){
-        this.nomeCondut = c.getNomeCondut();
-        this.viagem = c.getViagem();
+        this.viagens = c.getViagens();
+    }
+ 
+    
+    public List<Viagem> getViagens(){
+        List<Viagem> aux = new ArrayList<Viagem>();
+        for(Viagem v: this.viagens)
+            aux.add(v.clone());
+                
+        return aux;
     }
     
-    public String getNomeCondut(){
-        return nomeCondut;
-    }
-    
-    public Map<Localizacao,Localizacao> getViagem(){
-        return this.viagem.entrySet()
-                          .stream()
-                          .collect(toMap(e->e.getKey(),e->e.getValue().clone()));
-    }
-    
-    public void setHistorico(Map<Localizacao,Localizacao> viagem){
-        this.viagem = viagem.entrySet()
-                            .stream()
-                            .collect(toMap(e->e.getKey(),e->e.getValue().clone()));
+    public void setViagens(List<Viagem> viagens){
+        for(Viagem v: viagens)
+            this.viagens.add(v.clone());
     }
     
     public int quantViagens(){
-        return this.viagem.size();
+        return this.viagens.size();
     }
     
-    public void adiciona(Localizacao inicio, Localizacao fim){
-        this.viagem.put(inicio,fim);
+    public void addViagem(Viagem v){
+        this.viagens.add(v.clone());
     }
     
     public Historico clone(){
@@ -58,14 +54,16 @@ public class Historico{
         if((o==null) || o.getClass() != this.getClass())
             return false;
         Historico hist = (Historico) o;
-        return hist.getViagem().equals(viagem) &&
-               hist.getNomeCondut().equals(nomeCondut);
+        return hist.getViagens().equals(viagens);
     }
     
     public String toString(){
+        int i;
         StringBuilder sb = new StringBuilder();
-        sb.append("Condutor ").append(nomeCondut).append("\n");
-        sb.append("( ").append(viagem.toString()).append(" )");
+        for(i=0;i<this.viagens.size();i++){
+            sb.append("Viagem: ").append(viagens.get(i).toString()).append("\n");
+        }
+        
         return sb.toString();
     }
 }
