@@ -16,6 +16,21 @@ public class UmerApp implements Serializable
     private static UmeR umer;
     private static Menu mMain, mCliente, mSolicitar, mRegistos, mMotorista, mMotoristaEmp, mVeiculo;
         
+    public static void main(String [] args){
+        carregaMenus();
+        carregaDados();
+        carregaMenuP();
+    
+        try{
+            umer.gravaObj();
+        }
+        catch(IOException e){
+            System.out.println("Não gravei os dados");
+        }
+        
+        System.out.println("Até breve!");
+    }
+       
      public static void carregaMenus(){
         String [] principal = {"Iniciar Sessão",
                                "Registar Utilizador",
@@ -62,4 +77,18 @@ public class UmerApp implements Serializable
         mMotoristaEmp = new Menu(motoristaEmp);
         mVeiculo = new Menu(veiculo);
     }
+    
+    private static void carregaMenuP(){
+        do{
+           mMain.executa();
+            
+           switch(mMain.getOpcao()){
+                case 1: iniciaSessao(); break;
+                case 2: registaUtilizador(); break;
+                case 3: listaEmpresas(); break;
+                case 4: top10Clientes(); break;
+                case 5: top5Motoristas(); break;
+           } 
+        }while(mMain.getOpcao() != 0); 
+           
 }
