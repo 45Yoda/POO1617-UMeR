@@ -97,18 +97,18 @@ public class Motorista extends Utilizador{
    
    public void setVeiculo(Veiculo v) {
        if (this.veiculo!=null) this.veiculo.setUso(false);
-       this.veiculo=v;
+       this.veiculo=v.clone();
        if (this.veiculo!=null) this.veiculo.setUso(true);
     }
     
    public void setEmpresa(Empresa e) {
        if (this.empresa!=null) this.empresa.getMotoristas().remove(this);
-       this.empresa=e;
+       this.empresa=e.clone();
        if (this.empresa!=null) this.empresa.getMotoristas().add(this);
     }
    //Método clone
    public Motorista clone(){
-       return new  Motorista();
+       return new  Motorista(this);
    }
    
    //Método equals

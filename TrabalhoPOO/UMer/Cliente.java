@@ -52,7 +52,7 @@ public class Cliente extends Utilizador{
    //Método clone
 
    public Cliente clone(){
-       return new Cliente();
+       return new Cliente(this);
    }
    
    //Método equals

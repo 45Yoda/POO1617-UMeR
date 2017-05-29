@@ -167,6 +167,6 @@ public class Empresa{
     
     //Método clone
     public Empresa clone(){
-        return new Empresa();
+        return new Empresa(this);
     }
 }

@@ -17,7 +17,7 @@ public class Moto extends Veiculo{
    }
    
    public Moto clone(){
-       return new Moto();
+       return new Moto(this);
    }
    
    public boolean equals(Object o){
