@@ -9,15 +9,18 @@ public class Motorista extends Utilizador{
    private Historico viagens; //histórico das viagens realizadas
    private double kmsTotal;
    private boolean disponibilidade;
-   
+   private Veiculo veiculo;
+   private Empresa empresa;
 
    public Motorista(){
        super();
-       grauC = 0;
-       classificacao = 0;
-       viagens = null;
-       kmsTotal = 0;
-       disponibilidade = false;
+       this.grauC = 0;
+       this.classificacao = 0;
+       this.viagens = null;
+       this.kmsTotal = 0;
+       this.disponibilidade = false;
+       this.veiculo=null;
+       this.empresa=null;
    }
    
    public Motorista(String email,String nome, String pass, String morada, String data, int grau, int classif, Historico viagem, double kmsT, boolean disp){
@@ -27,15 +30,19 @@ public class Motorista extends Utilizador{
        this.viagens = viagem;
        this.kmsTotal = kmsT;
        this.disponibilidade = disp;
-   }
+       this.veiculo=null;
+       this.empresa=null;
+    }
    
    public Motorista(Motorista m){
        super(m);
-       grauC = m.getGrau();
-       classificacao = m.getClassif();
-       viagens = m.getViagens();
-       kmsTotal = m.getKmsTot();
-       disponibilidade = m.getDisp();
+       this.grauC = m.getGrau();
+       this.classificacao = m.getClassif();
+       this.viagens = m.getViagens();
+       this.kmsTotal = m.getKmsTot();
+       this.disponibilidade = m.getDisp();
+       this.veiculo=m.getVeiculo();
+       this.empresa=m.getEmpresa();
    }
     
    //gets
@@ -60,6 +67,13 @@ public class Motorista extends Utilizador{
        return this.disponibilidade;
     }
    
+   public Veiculo getVeiculo() {
+       return this.veiculo;
+    }
+    
+    public Empresa getEmpresa() {
+        return this.empresa;
+    }
    //sets
    public void setGrau(int grauC){
        this.grauC = grauC;
@@ -81,7 +95,17 @@ public class Motorista extends Utilizador{
        this.disponibilidade = disponibilidade;
    }
    
-   
+   public void setVeiculo(Veiculo v) {
+       if (this.veiculo!=null) this.veiculo.setUso(false);
+       this.veiculo=v;
+       if (this.veiculo!=null) this.veiculo.setUso(true);
+    }
+    
+   public void setEmpresa(Empresa e) {
+       if (this.empresa!=null) this.empresa.getMotoristas().remove(this);
+       this.empresa=e;
+       if (this.empresa!=null) this.empresa.getMotoristas().add(this);
+    }
    //Método clone
    public Motorista clone(){
        return new  Motorista();

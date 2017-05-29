@@ -1,9 +1,11 @@
+import java.util.List;
+import java.util.ArrayList;
 
 public class Empresa{
     private String nomeEmpresa;
-    private Veiculo[] taxis;
+    private List<Veiculo> taxis;
     private int nveiculos; //numero veiculos na empresa
-    private Motorista[] motoristas;
+    private List<Motorista> motoristas;
     private int nmotoristas; //numero motoristas na empresa
     private int motocap; //capacidade de motoristas da empresa
     private int capacidade;//capacidade da empresa (em número de veículos)
@@ -12,22 +14,22 @@ public class Empresa{
     //Construtores
     public Empresa(){
         this.nomeEmpresa = " ";
-        this.taxis = new Veiculo[capacidade];
+        this.taxis = new ArrayList<Veiculo>(capacidade);
         this.capacidade = 0;
         this.motocap=0;
         this.nveiculos = 0;
         this.nmotoristas=0;
-        this.motoristas = new Motorista[motocap];
+        this.motoristas = new ArrayList<Motorista>(motocap);
     }
     
     public Empresa(String nome, int capacidade,int motocap){
         this.nomeEmpresa = nome;
-        this.taxis = new Veiculo[capacidade];
+        this.taxis = new ArrayList<Veiculo>(capacidade);
         this.nveiculos = 0;
         this.motocap=motocap;
         this.capacidade = capacidade;
         this.nmotoristas=0;
-        this.motoristas = new Motorista[motocap];
+        this.motoristas = new ArrayList<Motorista>(motocap);
     }
     
     public Empresa(Empresa emp){
@@ -45,19 +47,19 @@ public class Empresa{
         return this.nomeEmpresa;
     }
     
-    public Veiculo[] getTaxis(){
-        Veiculo[] aux = new Veiculo[taxis.length];
-        for(int i =0;i<taxis.length;i++)
-                aux[i] = taxis[i];
+    public List<Veiculo> getTaxis(){
+        List<Veiculo> aux = new ArrayList<Veiculo>(this.capacidade);
+        for(Veiculo v: this.taxis)
+            aux.add(v.clone());
                 
         return aux;
     }
     
-    public Motorista[] getMotoristas(){
-        Motorista[] aux = new Motorista[motoristas.length];
-        for(int i =0;i<motoristas.length;i++)
-                aux[i] = motoristas[i];
-                
+    public List<Motorista> getMotoristas(){
+        List<Motorista> aux = new ArrayList<Motorista>(this.motocap);
+        for(Motorista m: this.motoristas)
+            aux.add(m.clone());
+        
         return aux;
     }
     
@@ -86,12 +88,14 @@ public class Empresa{
     }
     
     
-    public void setTaxis(Veiculo[] taxis){
-        this.taxis = taxis;
+    public void setTaxis(List<Veiculo> taxis){
+        for(Veiculo v: taxis)
+            this.taxis.add(v.clone());
     }
     
-    public void setMotoristas(Motorista[] motoristas) {
-        this.motoristas=motoristas;
+    public void setMotoristas(List<Motorista> motoristas) {
+         for(Motorista m: motoristas)
+            this.motoristas.add(m.clone());
     }
     
     public void setNVeiculos(int nveiculos){
@@ -112,39 +116,19 @@ public class Empresa{
     
     //Métodos auxiliares
     public void insereVeiculo(Veiculo v){
-        if(!existeVeiculo(v) && nveiculos < taxis.length){
-            taxis[nveiculos++] = v;
+        if(!this.taxis.contains(v) && this.nveiculos < this.capacidade){
+            this.taxis.add(v.clone());
+            this.nveiculos++;
         }
     }
     
     public void insereMotorista(Motorista m) {
-        if(!existeMotorista(m) && nmotoristas<motocap) 
-                    motoristas[nmotoristas++] = m;
+        if(!this.motoristas.contains(m) && this.nmotoristas<this.motocap) { 
+            this.motoristas.add(m.clone());
+            this.nmotoristas++;
+        }
     }
     
-    public boolean existeVeiculo(Veiculo v){
-        int i;
-        boolean r = false;
-        for(i=0;i<nveiculos && !r;i++){
-            if(taxis[i].equals(v)){
-                r=true;
-            }
-        }
-        
-        return r;
-    }
-    
-    public boolean existeMotorista(Motorista m){
-        int i;
-        boolean r = false;
-        for(i=0;i<nmotoristas && !r;i++){
-            if(motoristas[i].equals(m)){
-                r=true;
-            }
-        }
-        
-        return r;
-    }
     
     //Método equals
     public boolean equals(Object o){
@@ -171,11 +155,11 @@ public class Empresa{
         sb.append("Capacidade de motoristas: ").append(motocap).append("\n");
         
         for(i=0;i<nveiculos;i++){
-            sb.append("Táxis: ").append(taxis[i]).append("\n");
+            sb.append("Táxis: ").append(taxis.get(i)).append("\n");
         }
         
         for(i=0;i<nmotoristas;i++){
-            sb.append("Motoristas: ").append(motoristas[i]).append("\n");
+            sb.append("Motoristas: ").append(motoristas.get(i)).append("\n");
         }
         
         return sb.toString();
