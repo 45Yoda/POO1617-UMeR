@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.List;
@@ -157,6 +158,25 @@ public class UMeR
    public void fechaSessao(){
        this.user = null;
    }
+   
+   /**?????**/
+   public static UMeR initApp() throws IOException, ClassNotFoundException{
+       ObjectInputStream ois = new ObjectInputStream(new FileInputStream("umer.data"));
+       UMeR umer = (UMeR) ois.readObject();
+       ois.close();
+       return umer;
+   }
+   
+   
+   /****Gravar****/
+   public void gravar() throws IOException{
+       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("umer.data"));
+       oos.writeObject(this);
+       
+       oos.flush();
+       oos.close();
+   }
+   
    
    /****Relativos aos veiculos ****/
    
