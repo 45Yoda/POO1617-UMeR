@@ -7,8 +7,8 @@ public class Moto extends Veiculo{
        super();
    }
    
-   public Moto(int vMed, int preco, int factorF, String matricula){
-       super(vMed,preco,factorF,matricula);
+   public Moto(int vMed, int preco, int factorF, String matricula, Localizacao loc){
+       super(vMed,preco,factorF,matricula,loc);
        
    }
    

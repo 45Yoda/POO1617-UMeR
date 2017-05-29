@@ -1,4 +1,4 @@
-import static java.lang.Math.abs;
+import java.lang.Math;
 
 public class Localizacao{
     private double x, y;
@@ -30,6 +30,14 @@ public class Localizacao{
    
     
     //Métodos auxiliares
+    
+    //Método para calcular a distância
+    public double calculaDist(Localizacao l){
+        double x = Math.pow(this.x - l.getX(), 2);
+        double y = Math.pow(this.y - l.getY(), 2);
+        
+        return Math.sqrt(x+y);
+    }
  
     
     //Método equals

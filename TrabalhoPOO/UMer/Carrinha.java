@@ -6,8 +6,8 @@ public class Carrinha extends Veiculo{
        super();
    }
    
-   public Carrinha(int vMed, int preco, int factorF, String matricula){
-       super(vMed,preco,factorF,matricula);
+   public Carrinha(int vMed, int preco, int factorF, String matricula, Localizacao loc){
+       super(vMed,preco,factorF,matricula,loc);
        
    }
    
