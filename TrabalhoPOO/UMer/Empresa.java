@@ -154,19 +154,28 @@ public class Empresa{
         return emp.getNomeEmpresa().equals(nomeEmpresa) &&
                emp.getTaxis().equals(taxis) &&
                emp.getNVeiculos() == nveiculos &&
-               emp.getCapacidade() == capacidade;
+               emp.getCapacidade() == capacidade &&
+               emp.getMotocap()==motocap &&
+               emp.getNMotoristas()==nmotoristas &&
+               emp.getMotoristas().equals(motoristas);
     }
     
     //Método toString
     public String toString(){
         int i;
         StringBuilder sb = new StringBuilder();
-        sb.append("Nome Empresa: ").append(nomeEmpresa);
-        sb.append("Número de veiculos: ").append(nveiculos);
-        sb.append("Capacidade: ").append(capacidade);
+        sb.append("Nome Empresa: ").append(nomeEmpresa).append("\n");
+        sb.append("Número de veiculos: ").append(nveiculos).append("\n");
+        sb.append("Capacidade: ").append(capacidade).append("\n");
+        sb.append("Número de motoristas: ").append(nmotoristas).append("\n");
+        sb.append("Capacidade de motoristas: ").append(motocap).append("\n");
         
         for(i=0;i<nveiculos;i++){
-            sb.append("Táxis: ").append(taxis[i]);
+            sb.append("Táxis: ").append(taxis[i]).append("\n");
+        }
+        
+        for(i=0;i<nmotoristas;i++){
+            sb.append("Motoristas: ").append(motoristas[i]).append("\n");
         }
         
         return sb.toString();

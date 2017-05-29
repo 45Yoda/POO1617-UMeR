@@ -8,6 +8,7 @@ public abstract class Veiculo{
    private int factorF; //factor de fiabilidade
    private String matricula;
    private List<Cliente> filaEspera;
+   private boolean uso;
    
    //Construtores
    public Veiculo (){
@@ -16,6 +17,7 @@ public abstract class Veiculo{
        this.factorF = 0;
        this.matricula = " ";
        this.filaEspera = new ArrayList<>();
+       this.uso=false;
    }
    
    public Veiculo(int vMed, int preco, int factorF, String matricula){
@@ -24,6 +26,7 @@ public abstract class Veiculo{
        this.factorF = factorF;
        this.matricula = matricula;
        this.filaEspera = new ArrayList<Cliente>();
+       this.uso=false;
    }
    
    public Veiculo (Veiculo v){
@@ -32,6 +35,7 @@ public abstract class Veiculo{
        this.factorF = v.getFactorF();
        this.matricula = v.getMat();
        this.filaEspera = v.getFila();
+       this.uso=v.getUso();
    }
    
    
@@ -57,6 +61,9 @@ public abstract class Veiculo{
        return new ArrayList<Cliente>(this.filaEspera);
    }
    
+   public boolean getUso() {
+       return this.uso;
+    }
    //sets
    
    public void setVMed(int vMed){
@@ -79,6 +86,9 @@ public abstract class Veiculo{
        this.filaEspera.add(next.clone());
    }
 
+   public void setUso(boolean uso) {
+    this.uso=uso;
+   }
    //Clone do Veiculo
    public abstract Veiculo clone();
    
@@ -95,7 +105,8 @@ public abstract class Veiculo{
               && v.getPreco() == preco
               && v.getFactorF() == factorF
               && v.getMat().equals(matricula)
-              && v.getFila().equals(filaEspera);
+              && v.getFila().equals(filaEspera)
+              && v.getUso()==uso;
    }
    
    //Método toString
@@ -103,8 +114,9 @@ public abstract class Veiculo{
        StringBuilder sb = new StringBuilder();
        sb.append("Velocidade média: ").append(vMed).append("\n");
        sb.append("Preço: ").append(preco).append("€").append("\n");
-       sb.append("Factor de fiabilidade: ").append("\n");
-       sb.append("Matricula: ").append("\n");
+       sb.append("Factor de fiabilidade: ").append(factorF).append("\n");
+       sb.append("Matricula: ").append(matricula).append("\n");
+       sb.append("Em uso: ").append(uso).append("\n");
        for(Cliente c : filaEspera){
            sb.append(c).append("\n");
         }
