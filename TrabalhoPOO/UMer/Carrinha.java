@@ -16,7 +16,7 @@ public class Carrinha extends Veiculo{
    }
    
    public Carrinha clone(){
-       return new Carrinha();
+       return new Carrinha(this);
    }
    
    public boolean equals(Object o){

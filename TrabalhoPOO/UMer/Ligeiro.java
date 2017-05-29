@@ -16,7 +16,7 @@ public class Ligeiro extends Veiculo{
    }
    
    public Ligeiro clone(){
-       return new Ligeiro();
+       return new Ligeiro(this);
    }
    
    public boolean equals(Object o){
