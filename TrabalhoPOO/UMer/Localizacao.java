@@ -27,42 +27,10 @@ public class Localizacao{
     public double getY(){
         return this.y;
     }
-    
-    //incremento das coordenadas
-    public void incCoord(double dx, double dy){
-        x += dx;
-        y += dy;
-    }
-    
-    //decremento das coordenadas
-    public void decCoord(double dx, double dy){
-        x -= dx;
-        y -= dy;
-    }
-    
-    //soma as coordenadas do ponto Parametro ao ponto receptor
-    public void somaPonto(Localizacao p){
-        x += p.getX();
-        y += p.getY();
-    }
-    
-    //soma os valores parametro e devolve um novo ponto
-    public Localizacao somaPonto(double dx, double dy){
-        return new Localizacao(x += dx, y += dy);
-    }
-    
-    //verifica se ambas as coordenadas são positivas
-    public boolean coordPos(){
-        return x > 0 && y > 0;
-    }
+   
     
     //Métodos auxiliares
-    
-    //verifica se os 2 pontos são iguais
-    public boolean igual(Localizacao p){
-        if (p != null) return (x == p.getX() && y == p.getY());
-        else return false;
-    }
+ 
     
     //Método equals
     public boolean equals(Object o){
@@ -74,7 +42,9 @@ public class Localizacao{
     
     //toString do Localizacao 
     public String toString(){
-        return new String("Pt2D = " + x + ", " + y);
+        StringBuilder sb = new StringBuilder();
+        sb.append("Localização atual: ").append("(").append(x).append(",").append(y).append(")").append("\n");
+        return sb.toString();
     }
             
     //Clone de Localizacao
@@ -82,8 +52,4 @@ public class Localizacao{
         return new Localizacao(this);
     }
     
-    //Método hashCode
-    public int hashCode(){
-        return (int)(this.x*7 + this.y*11);
-    }
 }
