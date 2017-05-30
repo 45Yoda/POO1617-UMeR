@@ -9,24 +9,28 @@ public class UMeR
 {
    private Map<String,Utilizador> utilizadores; //Email
    private Map<String,Veiculo> veiculo; //Matricula;
-   private Utilizador user;
    private Map<Veiculo,Motorista> motorista;
+   private Map<String,Empresa> empresa;//nome da empresa
+   private Utilizador user;
    
    public UMeR(){
        this.utilizadores = new TreeMap<String,Utilizador>();
        this.veiculo = new TreeMap<String,Veiculo>();
+       this.empresa = new TreeMap<String,Empresa>();
        this.user = null;
    }
    
-   public UMeR(TreeMap<String,Utilizador> uti, TreeMap<String,Veiculo> veic, Utilizador util){
+   public UMeR(TreeMap<String,Utilizador> uti, TreeMap<String,Veiculo> veic,TreeMap<String,Empresa> emp, Utilizador util){
        this.utilizadores = uti;
        this.veiculo = veic;
+       this.empresa=emp;
        this.user = util;
    }
    
    public UMeR (UMeR um){
        this.utilizadores = um.getUtilizadores();
        this.veiculo = um.getVeiculo();
+       this.empresa=um.getEmpresa();
        this.user = um.getUser();
    }
    
@@ -42,7 +46,9 @@ public class UMeR
            return 1;
        }
        if(user instanceof Motorista){
-           return 2;
+           Motorista m = (Motorista) user;
+           if (m.getEmpresa()==null) return 2;
+           else return 3;
        }
        
        return 0;
@@ -72,13 +78,13 @@ public class UMeR
    }
    
    //Utilizadores do UMeR
-   private Map<String,Utilizador> getUtilizadores(){
-       utilizadores = new TreeMap<String,Utilizador>();
+   public Map<String,Empresa> getEmpresa(){
+       empresa = new TreeMap<String,Empresa>();
        
-       for(Map.Entry<String,Utilizador> entry: this.utilizadores.entrySet())
-            utilizadores.put(entry.getKey(),entry.getValue().clone());
+       for(Map.Entry<String,Empresa> entry: this.empresa.entrySet())
+            empresa.put(entry.getKey(),entry.getValue().clone());
             
-       return utilizadores;
+       return empresa;
    }
    
    //veiculos da UMeR
@@ -91,7 +97,15 @@ public class UMeR
        return veiculo;
    }
    
-
+   //utilizadores da umer
+   public Map<String,Utilizador> getUtilizadores(){
+       utilizadores = new TreeMap<String,Utilizador>();
+       
+       for(Map.Entry<String,Utilizador> entry: this.utilizadores.entrySet())
+            utilizadores.put(entry.getKey(),entry.getValue().clone());
+            
+       return utilizadores;
+   }
    //sets
    
    //Utilizador com login
@@ -100,7 +114,7 @@ public class UMeR
             user = new Cliente ((Cliente) util);
        if(util instanceof Motorista)
             user = new Motorista ((Motorista) util);
-   }
+  }
    
    //Utilizadores
    public void setUtilizadores(Map<String,Utilizador> utilizadores){
@@ -115,7 +129,14 @@ public class UMeR
        for(Map.Entry<String,Veiculo> entry: veiculo.entrySet())
             this.veiculo.put(entry.getKey(), entry.getValue().clone());
    }
-
+   
+   //Empresa
+    public void setEmpresa(Map<String,Empresa> empresa){
+       this.empresa = new TreeMap<String,Empresa>();
+       for(Map.Entry<String,Empresa> entry: empresa.entrySet())
+            this.empresa.put(entry.getKey(), entry.getValue().clone());
+   }
+   
    //Clone da UMeR
    public UMeR clone(){
        return new UMeR();
@@ -132,7 +153,8 @@ public class UMeR
        UMeR u = (UMeR) o;
        return u.getUtilizadores().equals(utilizadores) &&
               u.getVeiculo().equals(veiculo) &&
-              u.getUser().equals(user);
+              u.getUser().equals(user) &&
+              u.getEmpresa().equals(empresa);
    }
    
    //Métodos
@@ -193,6 +215,8 @@ public class UMeR
        
        m.setVeiculo(v);
    }
+   
+   
 }
    
 

@@ -2,12 +2,14 @@ import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Iterator;
+import java.util.stream.Collectors;
 import java.util.TreeSet;
 import java.util.Set;
 import java.lang.Object;
 import java.io.Serializable;
 import java.io.IOException;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class UMeRApp implements Serializable
 {
@@ -111,8 +113,8 @@ public class UMeRApp implements Serializable
                         break;
                 case 4: top10Clientes(); 
                         break;
-                case 5: top5Motoristas(); 
-                        break;
+               /* case 5: top5Motoristas(); 
+                        break;*/
            } 
         }while(mMain.getOpcao() != 0); 
     }
@@ -126,7 +128,7 @@ public class UMeRApp implements Serializable
                         break;
                 case 2: consultaHistorico();
                         break;
-                case 3: solicitaViagem();
+                case 3: carregaMenuSolicita();
                         break;
                 case 4: umer.fechaSessao();
             }
@@ -136,7 +138,7 @@ public class UMeRApp implements Serializable
     private static void carregaMenuM(){
         do{
             mMotorista.executa();
-            
+            /*
             switch(mMotorista.getOpcao()){
                 case 1: adicionaVeiculo();
                         break;
@@ -151,14 +153,14 @@ public class UMeRApp implements Serializable
                 case 6: sinalizaDisp();
                         break;
                 case 7: umer.fechaSessao();
-            }
+            }*/
         }while(mMotorista.getOpcao() != 0);
     }
 
     private static void carregaMenuME(){
         do{
             mMotoristaEmp.executa();
-            
+            /*
             switch(mMotorista.getOpcao()){
                 case 1: adicionaVeiculo();
                         break;
@@ -177,20 +179,20 @@ public class UMeRApp implements Serializable
                 case 8: desassociaEmpresa();
                         break;
                 case 9: umer.fechaSessao();
-            }
+            }*/
         }while(mMotoristaEmp.getOpcao() != 0);
     }
     
     private static void carregaMenuSolicita(){
         do{
             mSolicitar.executa();
-            
+            /*
             switch(mSolicitar.getOpcao()){
                 case 1: solTaxiProx();
                         break;
                 case 2: solTaxiEsp();
                         break;
-            }
+            }*/
         }while(mSolicitar.getOpcao() != 0);
     }
     
@@ -216,7 +218,7 @@ public class UMeRApp implements Serializable
         System.out.println("Insira a sua data de nascimento (dd-mm-yyyy)");
         data = input.nextLine();
         
-        switch(mRegistar.getOpcao()){
+        switch(mRegistos.getOpcao()){
             case 0: input.close();
                     System.out.println("Cancelou o registo");
                     return;
@@ -234,7 +236,7 @@ public class UMeRApp implements Serializable
         
         input.close();
         try{
-            umer.registaUtilizador(uti);
+            umer.registarUtilizador(uti);
         }
         catch(UtilizadorExistenteException e){
             System.out.println(e.getMessage());
@@ -270,6 +272,47 @@ public class UMeRApp implements Serializable
     }
 
     
+    private static void listaEmpresas() {
+        List<Empresa> emp = new ArrayList<Empresa>();
+        emp = umer.getEmpresa().values().stream().collect(Collectors.toList());
+        int i;
+        StringBuilder sb = new StringBuilder();
+        for(i=0;i<emp.size();i++){
+            sb.append("Empresa: ").append(emp.get(i).toString()).append("\n").append("\n");
+        }
+    }
+    
+    private static void top10Clientes() {
+        Map<Double,Utilizador> clientes = new TreeMap<Double,Utilizador>();
+        for(Utilizador u : umer.getUtilizadores().values())
+            if(u instanceof Cliente) {
+                double gasto = u.getQuantia();
+                clientes.put(gasto,u);
+            }
+        List<Utilizador> ut = new ArrayList<Utilizador>();
+        ut=clientes.values().stream().collect(Collectors.toList());
+        int i;
+        int c;
+        StringBuilder sb = new StringBuilder();
+        for(i=ut.size()-1,c=0;c<10;c++,i--)
+            sb.append(ut.get(i).getNome()).append("\n");
+    }
+    
+    private static void avaliaMotorista() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Digite o email do motorista:");
+        String email=scan.nextLine();
+        System.out.println("Classifique o seu motorista (de 0 a 100): ");
+        int c = scan.nextInt();
+        Motorista m = (Motorista) umer.getUtilizadores().get(email);
+        m.classMotorista(c);
+    }
+    
+   private static void consultaHistorico() {
+       Historico h = umer.getUser().getHistorico();
+       StringBuilder sb = new StringBuilder();
+       sb.append(h.toString()).append("\n");
+    }
     
     
 }

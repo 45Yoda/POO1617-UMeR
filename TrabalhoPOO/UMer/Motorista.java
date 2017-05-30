@@ -6,7 +6,6 @@ public class Motorista extends Utilizador{
    
    private int grauC; //grau de cumprimento de horário (0 a 100)
    private int classificacao; //classificação do motorista dada pelo cliente no final da viagem (0 a 100
-   private Historico viagens; //histórico das viagens realizadas
    private double kmsTotal;
    private boolean disponibilidade;
    private Veiculo veiculo;
@@ -16,18 +15,16 @@ public class Motorista extends Utilizador{
        super();
        this.grauC = 0;
        this.classificacao = 0;
-       this.viagens = null;
        this.kmsTotal = 0;
        this.disponibilidade = false;
        this.veiculo=null;
        this.empresa=null;
    }
    
-   public Motorista(String email,String nome, String pass, String morada, String data, int grau, int classif, Historico viagem, double kmsT, boolean disp){
+   public Motorista(String email,String nome, String pass, String morada, String data, int grau, int classif,double kmsT, boolean disp){
        super(email,nome,pass,morada,data);
        this.grauC = grau;
        this.classificacao = classif;
-       this.viagens = viagem;
        this.kmsTotal = kmsT;
        this.disponibilidade = disp;
        this.veiculo=null;
@@ -38,7 +35,6 @@ public class Motorista extends Utilizador{
        super(m);
        this.grauC = m.getGrau();
        this.classificacao = m.getClassif();
-       this.viagens = m.getViagens();
        this.kmsTotal = m.getKmsTot();
        this.disponibilidade = m.getDisp();
        this.veiculo=m.getVeiculo();
@@ -53,10 +49,6 @@ public class Motorista extends Utilizador{
    
    public int getClassif(){
        return this.classificacao;
-   }
-   
-   public Historico getViagens(){
-       return (Historico) this.viagens;
    }
    
    public double getKmsTot(){
@@ -83,10 +75,6 @@ public class Motorista extends Utilizador{
        this.classificacao = classificacao;
    }
    
-   public void setViagem(Historico h){
-       this.viagens = h.clone();
-   }
-   
    public void setKmsT(double kmsTotal){
        this.kmsTotal = kmsTotal;
    }
@@ -111,6 +99,12 @@ public class Motorista extends Utilizador{
        return new  Motorista(this);
    }
    
+   public void classMotorista (int classificacao) {
+       int t=this.getHistorico().quantViagens();
+       int fin = (this.getClassif()*t+classificacao)/(t+1);
+       this.setClass(fin);
+    }
+   
    //Método equals
    public boolean equals(Object o){
        if(this==o) return true;
@@ -118,7 +112,6 @@ public class Motorista extends Utilizador{
        Motorista mot = (Motorista) o;
        return mot.getGrau() == grauC &&
               mot.getClassif() == classificacao &&
-              mot.getViagens().equals(viagens) &&
               mot.getKmsTot() == kmsTotal &&
               mot.getDisp() == disponibilidade;
    }
@@ -128,7 +121,6 @@ public class Motorista extends Utilizador{
        StringBuilder sb = new StringBuilder();
        sb.append("Grau de cumprimento: ").append(grauC).append("\n");
        sb.append("Classificação: ").append(classificacao).append("\n");
-       sb.append("( ").append(viagens.toString()).append(" )");
        sb.append("Kms percorridos(Total): ").append(kmsTotal).append("\n");
        sb.append("Disponibilidade: ").append(disponibilidade).append("\n");
        

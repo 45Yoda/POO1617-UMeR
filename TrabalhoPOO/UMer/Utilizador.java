@@ -6,14 +6,16 @@ public abstract class Utilizador{
    private String pass; //password do user
    private String morada; //morada do user
    private String data; //data de nascimento do user
+   private Historico historico; //histórico das viagens realizadas
    
    //Construtores
    public Utilizador() {
-       email = " ";
-       nome = " ";
-       pass = " ";
-       morada = " ";
-       data = " ";
+       this.email = " ";
+       this.nome = " ";
+       this.pass = " ";
+       this.morada = " ";
+       this.data = " ";
+       this.historico=null;
    }
    
    public Utilizador(String mail, String name, String passw, String moradas, String date){
@@ -22,14 +24,16 @@ public abstract class Utilizador{
        this.pass = passw;
        this.morada = moradas;
        this.data = date;
+       this.historico=null;
    }
     
    public Utilizador (Utilizador a){
-       email = a.getEmail();
-       nome = a.getNome();
-       pass = a.getPass();
-       morada = a.getMorada();
-       data = a.getData();
+       this.email = a.getEmail();
+       this.nome = a.getNome();
+       this.pass = a.getPass();
+       this.morada = a.getMorada();
+       this.data = a.getData();
+       this.historico = a.getHistorico();
    }
    
    //gets
@@ -55,6 +59,14 @@ public abstract class Utilizador{
        return data;
    }
    
+   public Historico getHistorico(){
+       return (Historico) this.historico;
+   }
+   
+   public double getQuantia() {
+       return this.historico.getViagens().
+                   stream().mapToDouble(v->v.getPreco()).sum();
+    }
    //sets
    
    public void setEmail(String email){
@@ -77,6 +89,12 @@ public abstract class Utilizador{
        this.data = data;
    }
    
+   public void setViagem(Historico h){
+       this.historico = h.clone();
+   }
+   
+   
+   
    //Clone do Utilizador
    public abstract Utilizador clone();
    
@@ -93,7 +111,8 @@ public abstract class Utilizador{
               && ut.getNome().equals(nome)
               && ut.getPass().equals(pass)
               && ut.getMorada().equals(morada)
-              && ut.getData().equals(data);
+              && ut.getData().equals(data)
+              && ut.getHistorico().equals(historico);
    }
    
    //toString do Utilizador
@@ -104,6 +123,7 @@ public abstract class Utilizador{
        sb.append("Password").append(pass).append("\n");
        sb.append("Morada").append(morada).append("\n");
        sb.append("Data de Nascimento").append(data).append("\n");
+       sb.append("historico ").append(historico.toString()).append(" )");
        return sb.toString();
    }
 }
