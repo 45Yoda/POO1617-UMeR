@@ -138,48 +138,49 @@ public class UMeRApp implements Serializable
     private static void carregaMenuM(){
         do{
             mMotorista.executa();
-            /*
-            switch(mMotorista.getOpcao()){
-                case 1: adicionaVeiculo();
-                        break;
-                case 2: associaVeiculo();
-                        break;
-                case 3: associaEmpresa();
-                        break;
+            
+            switch(mMotoristaEmp.getOpcao()){
+             //   case 1: adicionaVeiculo();
+                     //   break;
+//
+  //                      break;
+             //   case 3: associaEmpresa();
+                   //     break;
                 case 4: consultaHistorico();
                         break;
-                case 5: registaViagem();
-                        break;
+               // case 5: registaViagem();
+                   //     break;
                 case 6: sinalizaDisp();
                         break;
                 case 7: umer.fechaSessao();
-            }*/
+            }
         }while(mMotorista.getOpcao() != 0);
     }
 
     private static void carregaMenuME(){
         do{
             mMotoristaEmp.executa();
-            /*
+            
             switch(mMotorista.getOpcao()){
-                case 1: adicionaVeiculo();
-                        break;
-                case 2: associaVeiculo();
-                        break;
+               
+                // case 1: adicionaVeiculo();
+                //        break;
+               // case 2: associaVeiculo();
+                 //       break;
                 case 3: consultaHistorico();
                         break;
                 case 4: listaMotoristaEmp();
                         break;
                 case 5: listaVeiculoEmp();
                         break;
-                case 6: registaViagem();
-                        break;
+              //  case 6: registaViagem();
+             //           break;
                 case 7: sinalizaDisp();
                         break;
-                case 8: desassociaEmpresa();
-                        break;
-                case 9: umer.fechaSessao();
-            }*/
+               // case 8: desassociaEmpresa();
+                 //       break;
+             //   case 9: umer.fechaSessao();
+            }
         }while(mMotoristaEmp.getOpcao() != 0);
     }
     
@@ -194,6 +195,22 @@ public class UMeRApp implements Serializable
                         break;
             }*/
         }while(mSolicitar.getOpcao() != 0);
+    }
+    
+    private static void carregaMenuVeivulo(){
+        do {
+            mVeiculo.executa();
+            /*
+            switch(mVeiculo.getOpcao()) {
+                
+                case 1: insereCarrinha();
+                    break;
+                case 2: insereCarro();
+                    break;
+                case 3: insereMota();
+                    break;
+            }*/
+        }while(mVeiculo.getOpcao()!=0);
     }
     
     /*****************************************************menuP*****************************************************/  
@@ -280,6 +297,7 @@ public class UMeRApp implements Serializable
         for(i=0;i<emp.size();i++){
             sb.append("Empresa: ").append(emp.get(i).toString()).append("\n").append("\n");
         }
+        System.out.println(sb);
     }
     
     private static void top10Clientes() {
@@ -300,7 +318,7 @@ public class UMeRApp implements Serializable
     
     private static void avaliaMotorista() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Digite o email do motorista:");
+        System.out.println("Digite o email do motorista:\n");
         String email=scan.nextLine();
         System.out.println("Classifique o seu motorista (de 0 a 100): ");
         int c = scan.nextInt();
@@ -314,6 +332,32 @@ public class UMeRApp implements Serializable
        sb.append(h.toString()).append("\n");
     }
     
+    private static void listaMotoristaEmp(){
+        Scanner scan = new Scanner(System.in); 
+        System.out.println("Digite o nome da empresa a que se pretende associar:\n");
+        String nome=scan.nextLine();
+        Motorista m = (Motorista) umer.getUser();
+        umer.getEmpresa().get(nome).getMotoristas().add(m);
+    }
     
+    private static void listaVeiculoEmp() {
+    Scanner scan = new Scanner(System.in); 
+    System.out.println("Digite o nome da empresa a que pretende associar:\n");
+    String nome=scan.nextLine();
+    System.out.println("Indique a matricula do veiculo que pretende associar: \n");
+    String mat = scan.nextLine();
+    Veiculo v = umer.getVeiculo().get(mat);
+    umer.getEmpresa().get(nome).getTaxis().add(v);
+ 
+    }
+    
+    private static void sinalizaDisp() {
+        Motorista m = (Motorista) umer.getMotorista().get(umer.getUser());
+        Scanner scan = new Scanner(System.in); 
+        System.out.println("Disponivel? (s/n)\n");
+        String r = scan.nextLine();
+        if (r.equals("s")) m.setDisp(true);
+        else m.setDisp(false);
+    }
 }
 
