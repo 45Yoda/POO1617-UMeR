@@ -139,13 +139,19 @@ public class UMeRApp implements Serializable
         do{
             mMotorista.executa();
             
-            switch(mMotoristaEmp.getOpcao()){
+            switch(mMotorista.getOpcao()){
              //   case 1: adicionaVeiculo();
                      //   break;
-//
-  //                      break;
-             //   case 3: associaEmpresa();
-                   //     break;
+                //  case 2: associaVeiculo();
+                     //   break;
+                case 3: try{associaMotoristaEmp();
+                            break;
+                        }
+                        catch(UtilizadorNaoExisteException | EmpresaNaoExisteException e){
+                            System.out.println(e);
+                        }
+                            
+                        
                 case 4: consultaHistorico();
                         break;
                // case 5: registaViagem();
@@ -163,23 +169,30 @@ public class UMeRApp implements Serializable
             
             switch(mMotorista.getOpcao()){
                
-                // case 1: adicionaVeiculo();
-                //        break;
-               // case 2: associaVeiculo();
-                 //       break;
-                case 3: consultaHistorico();
-                        break;
-               // case 4: listaMotoristaEmp();
-                 //       break;
-                //case 5: listaVeiculoEmp();
+                //case 1: adicionaVeiculo();
+                      //  break;
+                //case 2: associaVeiculo();
                   //      break;
-              //  case 6: registaViagem();
-             //           break;
-                case 7: sinalizaDisp();
+                case 3: try{associaVeiculoEmp();
+                            break;}
+                        catch(VeiculoNaoExisteException | EmpresaNaoExisteException e){
+                            System.out.println(e);
+                        }
+                        
+                case 4: consultaHistorico();
                         break;
-               // case 8: desassociaEmpresa();
+             //   case 5: listaMotoristaEmp();
+               //         break;
+               // case 6: listaVeiculoEmp();
                  //       break;
-             //   case 9: umer.fechaSessao();
+              //  case 7: registaViagem();
+             //           break;
+                case 8: sinalizaDisp();
+                        break;
+                //case 9: desassociaEmpresa();
+
+                 //       break;
+             //   case 10: umer.fechaSessao();
             }
         }while(mMotoristaEmp.getOpcao() != 0);
     }
@@ -294,9 +307,12 @@ public class UMeRApp implements Serializable
         emp = umer.getEmpresa().values().stream().collect(Collectors.toList());
         int i;
         StringBuilder sb = new StringBuilder();
-        for(i=0;i<emp.size();i++){
-            sb.append("Empresa: ").append(emp.get(i).toString()).append("\n").append("\n");
-        }
+        if(emp.size()==0) System.out.println("Não existem empresas registadas!");
+        else {
+            for(i=0;i<emp.size();i++){
+                sb.append("Empresa: ").append(emp.get(i).toString()).append("\n").append("\n");
+            }
+        }   
         System.out.println(sb);
     }
     
@@ -317,6 +333,7 @@ public class UMeRApp implements Serializable
     }
     
     private static void avaliaMotorista() {
+        //pode nao existir motorista
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite o email do motorista:\n");
         String email=scan.nextLine();
@@ -332,7 +349,9 @@ public class UMeRApp implements Serializable
        sb.append(h.toString()).append("\n");
     }
     
+
     private static void associaMotoristaEmp() throws UtilizadorNaoExisteException, EmpresaNaoExisteException{        
+
         Scanner scan = new Scanner(System.in); 
         System.out.println("Digite o nome da empresa a que se pretende associar:\n");
         String nome=scan.nextLine();
@@ -349,7 +368,9 @@ public class UMeRApp implements Serializable
                
     }
     
+
     private static void associaVeiculoEmp() throws VeiculoNaoExisteException,EmpresaNaoExisteException {
+        
         Scanner scan = new Scanner(System.in); 
         System.out.println("Digite o nome da empresa a que pretende associar:\n");
         String nome=scan.nextLine();
@@ -358,14 +379,15 @@ public class UMeRApp implements Serializable
         
         //NEW!!!!!!!
         Veiculo v = umer.getVeiculo().get(mat);
-        if(v == null)
-            throw new VeiculoNaoExisteException("Veiculo não existe!");
+        if(v == null){throw new VeiculoNaoExisteException("Veiculo não existe!");}
         
-        if(umer.getEmpresa().get(nome) == null)
+        if(umer.getEmpresa().get(nome) != null){
+            umer.getEmpresa().get(nome).getTaxis().add(v);
+        }
+        else{
             throw new EmpresaNaoExisteException("Esta Empresa não existe!");
-           
-        umer.getEmpresa().get(nome).getTaxis().add(v);
- 
+        }
+        
     }
     
     private static void sinalizaDisp() {
@@ -375,15 +397,6 @@ public class UMeRApp implements Serializable
         String r = scan.nextLine();
         if (r.equals("s")) m.setDisp(true);
         else m.setDisp(false);
-    }
-    
-    private static void associaEmpresa() throws EmpresaNaoExisteException {
-        //pode nao existir empresa
-        /*
-         * NEW!!!!!!
-        if(umer.getEmpresa().get(nome) == null)
-            throw new EmpresaNaoExisteException("Esta Empresa não existe!");
-            */
     }
    
 }
