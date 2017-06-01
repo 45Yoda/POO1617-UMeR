@@ -177,7 +177,7 @@ public class UMeRApp implements Serializable
              //           break;
                 case 7: sinalizaDisp();
                         break;
-               // case 8: desassociaEmpresa();
+                case 8: desassociaEmpresa();
                  //       break;
              //   case 9: umer.fechaSessao();
             }
@@ -332,7 +332,7 @@ public class UMeRApp implements Serializable
        sb.append(h.toString()).append("\n");
     }
     
-    private static void listaMotoristaEmp(){
+    private static void associaMotoristaEmp(){
         Scanner scan = new Scanner(System.in); 
         System.out.println("Digite o nome da empresa a que se pretende associar:\n");
         String nome=scan.nextLine();
@@ -340,7 +340,7 @@ public class UMeRApp implements Serializable
         umer.getEmpresa().get(nome).getMotoristas().add(m);
     }
     
-    private static void listaVeiculoEmp() {
+    private static void associaVeiculoEmp() {
     Scanner scan = new Scanner(System.in); 
     System.out.println("Digite o nome da empresa a que pretende associar:\n");
     String nome=scan.nextLine();
@@ -359,5 +359,11 @@ public class UMeRApp implements Serializable
         if (r.equals("s")) m.setDisp(true);
         else m.setDisp(false);
     }
+    
+    private static void associaEmpresa() {
+        //pode nao existir empresa
+        
+    }
+   
 }
 
