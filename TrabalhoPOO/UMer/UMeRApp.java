@@ -352,7 +352,7 @@ public class UMeRApp implements Serializable
     }
     
     private static void sinalizaDisp() {
-        Motorista m = (Motorista) umer.getMotorista().get(umer.getUser());
+        Motorista m = (Motorista) umer.getUtilizadores().get(umer.getUser());
         Scanner scan = new Scanner(System.in); 
         System.out.println("Disponivel? (s/n)\n");
         String r = scan.nextLine();
