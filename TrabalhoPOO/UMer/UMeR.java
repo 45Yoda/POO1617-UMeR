@@ -162,9 +162,9 @@ public class UMeR
    /****Relativos ao inicio,registo e fecho de sessão****/
    
    //Registar utilizador
-   public void registarUtilizador(Utilizador user) throws UtilizadorExistenteException{
+   public void registarUtilizador(Utilizador user) throws UtilizadorExisteException{
        String mail = user.getEmail();
-       if(utilizadores.containsKey(mail)){ throw new UtilizadorExistenteException("Utilizador já existente");}
+       if(utilizadores.containsKey(mail)){ throw new UtilizadorExisteException("Utilizador já existente");}
        else utilizadores.put(mail,user);
    }
    
@@ -203,8 +203,8 @@ public class UMeR
    /****Relativos aos veiculos ****/
    
    //Criar e inserir veiculos
-   public void insereVeiculo(Veiculo v) throws VeiculoExistenteException, SemAutorizacaoException{
-      if(this.veiculo.containsKey(v.getMat())) throw new VeiculoExistenteException("Veiculo já existe\n");
+   public void insereVeiculo(Veiculo v) throws VeiculoExisteException, SemAutorizacaoException{
+      if(this.veiculo.containsKey(v.getMat())) throw new VeiculoExisteException("Veiculo já existe\n");
       
       veiculo.put(v.getMat(),v);
    }
