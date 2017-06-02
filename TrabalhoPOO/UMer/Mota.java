@@ -1,23 +1,23 @@
 
 
-public class Moto extends Veiculo{
+public class Mota extends Veiculo{
 
    
-   public Moto(){
+   public Mota(){
        super();
    }
    
-   public Moto(int vMed, int preco, int factorF, String matricula, Localizacao loc){
+   public Mota(int vMed, double preco, int factorF, String matricula, Localizacao loc){
        super(vMed,preco,factorF,matricula,loc);
        
    }
    
-   public Moto(Moto l){
+   public Mota(Mota l){
        super(l);
    }
    
-   public Moto clone(){
-       return new Moto(this);
+   public Mota clone(){
+       return new Mota(this);
    }
    
    public boolean equals(Object o){
@@ -27,7 +27,7 @@ public class Moto extends Veiculo{
        if((o==null) || o.getClass() != this.getClass()){
            return false;
        }
-       Moto l = (Moto) o;
+       Mota l = (Mota) o;
        return super.equals(o);
    }
     

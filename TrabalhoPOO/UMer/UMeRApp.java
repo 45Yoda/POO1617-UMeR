@@ -15,7 +15,7 @@ public class UMeRApp implements Serializable
 {
     private UMeRApp() {}
     private static UMeR umer;
-    private static Menu mMain, mCliente, mSolicitar, mRegistos, mMotorista, mMotoristaEmp, mVeiculo;
+    private static Menu mMain, mCliente, mSolicitar, mRegistos, mMotorista, mMotoristaEmp;
         
     public static void main(String [] args){
         carregaMenus();
@@ -67,10 +67,6 @@ public class UMeRApp implements Serializable
                                
         String [] registar = {"Cliente",
                               "Motorista"};
-                              
-        String [] veiculo = {"Carrinha",
-                            "Carro",
-                            "Mota"};
           
         mMain = new Menu(principal);
         mCliente = new Menu(cliente);
@@ -78,7 +74,6 @@ public class UMeRApp implements Serializable
         mRegistos = new Menu(registar);
         mMotorista = new Menu(motorista);
         mMotoristaEmp = new Menu(motoristaEmp);
-        mVeiculo = new Menu(veiculo);
     }
     
     private static void carregaDados(){
@@ -144,10 +139,13 @@ public class UMeRApp implements Serializable
             mMotorista.executa();
             
             switch(mMotorista.getOpcao()){
-             //   case 1: adicionaVeiculo();
-                     //   break;
-                //  case 2: associaVeiculo();
-                     //   break;
+                case 1: adicionaVeiculo();
+                        break;
+                case 2: try{associaVeiculo();
+                            break;}
+                        catch(VeiculoNaoExisteException e){
+                            System.out.println(e);
+                        }
                 case 3: try{associaMotoristaEmp();
                             break;
                         }
@@ -173,10 +171,13 @@ public class UMeRApp implements Serializable
             
             switch(mMotorista.getOpcao()){
                
-                //case 1: adicionaVeiculo();
-                      //  break;
-                //case 2: associaVeiculo();
-                  //      break;
+                case 1: adicionaVeiculo();
+                        break;
+                case 2: try{associaVeiculo();
+                            break;}
+                        catch(VeiculoNaoExisteException e){
+                            System.out.println(e);
+                        }
                 case 3: try{associaVeiculoEmp();
                             break;}
                         catch(VeiculoNaoExisteException | EmpresaNaoExisteException e){
@@ -185,18 +186,17 @@ public class UMeRApp implements Serializable
                         
                 case 4: consultaHistorico();
                         break;
-             //   case 5: listaMotoristaEmp();
-               //         break;
-               // case 6: listaVeiculoEmp();
-                 //       break;
+                case 5: listaMotoristaEmp();
+                        break;
+                case 6: listaVeiculoEmp();
+                        break;
               //  case 7: registaViagem();
              //           break;
                 case 8: sinalizaDisp();
                         break;
                 //case 9: desassociaEmpresa();
-
                  //       break;
-             //   case 10: umer.fechaSessao();
+                case 10: umer.fechaSessao();
             }
         }while(mMotoristaEmp.getOpcao() != 0);
     }
@@ -212,22 +212,6 @@ public class UMeRApp implements Serializable
                         break;
             }*/
         }while(mSolicitar.getOpcao() != 0);
-    }
-    
-    private static void carregaMenuVeivulo(){
-        do {
-            mVeiculo.executa();
-            /*
-            switch(mVeiculo.getOpcao()) {
-                
-                case 1: insereCarrinha();
-                    break;
-                case 2: insereCarro();
-                    break;
-                case 3: insereMota();
-                    break;
-            }*/
-        }while(mVeiculo.getOpcao()!=0);
     }
     
     /*****************************************************menuP*****************************************************/  
@@ -314,7 +298,7 @@ public class UMeRApp implements Serializable
         if(emp.size()==0) System.out.println("Não existem empresas registadas!");
         else {
             for(i=0;i<emp.size();i++){
-                sb.append("Empresa: ").append(emp.get(i).toString()).append("\n").append("\n");
+                System.out.println(emp.get(i).getNomeEmpresa());
             }
         }   
         System.out.println(sb);
@@ -329,11 +313,12 @@ public class UMeRApp implements Serializable
             }
         List<Utilizador> ut = new ArrayList<Utilizador>();
         ut=clientes.values().stream().collect(Collectors.toList());
+        ut = ut.subList(ut.size()-10,ut.size()-1);
         int i;
-        int c;
-        StringBuilder sb = new StringBuilder();
-        for(i=ut.size(),c=0;c<10;c++,i--)
-            sb.append(ut.get(i).getNome()).append("\n");
+
+        for(i=ut.size()-1;i>=0;i--)
+           System.out.println(ut.get(i).getNome()+"\n");
+
     }
     
     private static void avaliaMotorista() throws UtilizadorNaoExisteException {
@@ -365,9 +350,8 @@ public class UMeRApp implements Serializable
         Scanner scan = new Scanner(System.in); 
         System.out.println("Digite o nome da empresa a que se pretende associar:\n");
         String nome=scan.nextLine();
-       
-        //NEW!!!!!
         Motorista m = (Motorista) umer.getUser();
+
         if(m == null)
             throw new UtilizadorNaoExisteException("Este Utilizador não existe");
        
@@ -401,13 +385,83 @@ public class UMeRApp implements Serializable
     }
     
     private static void sinalizaDisp() {
-        Motorista m = (Motorista) umer.getUtilizadores().get(umer.getUser());
+        Motorista m = (Motorista) umer.getUser();
         Scanner scan = new Scanner(System.in); 
         System.out.println("Disponivel? (s/n)\n");
         String r = scan.nextLine();
         if (r.equals("s")) m.setDisp(true);
         else m.setDisp(false);
     }
-   
+    
+    private static void adicionaVeiculo() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Indique a matricula do veiculo a registar: \n");
+        String mat= scan.nextLine();
+        System.out.println("Indique a sua velocidade média: \n");
+        int velocidade = scan.nextInt();
+        System.out.println("Indique o factor de fiabilidade do veiculo: \n");
+        int factorF = scan.nextInt();
+        System.out.println("Indique o preço base por kilometro: \n");
+        double preco = scan.nextDouble();
+        System.out.println("Indique a coordenada x do veiculo: \n");
+        double x = scan.nextDouble();        
+        System.out.println("Indique a coordenada y do veiculo: \n");
+        double y = scan.nextDouble();
+        System.out.println("O veiculo é ligeiro, carrinha ou moto? (l/c/m): \n");
+        String tipo = scan.nextLine();
+        Localizacao loc = new Localizacao(x,y);
+        if (tipo.equals("l")) {
+            Ligeiro lig = new Ligeiro(velocidade,preco,factorF,mat,loc);
+            umer.getVeiculo().put(lig.getMat(),lig.clone());
+        }
+        else if (tipo.equals("c")) {
+            Carrinha car = new Carrinha(velocidade,preco,factorF,mat,loc);
+            umer.getVeiculo().put(car.getMat(),(car.clone()));
+        }
+        else {
+            Mota mota = new Mota(velocidade,preco,factorF,mat,loc);
+            umer.getVeiculo().put(mota.getMat(),(mota.clone()));
+        }
+    }
+        
+    
+    private static void associaVeiculo() throws VeiculoNaoExisteException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Indique a matricula do veiculo a que se pretende associar: \n");
+        String mat = scan.nextLine();
+        Veiculo v = umer.getVeiculo().get(mat).clone();
+        if(v == null){throw new VeiculoNaoExisteException("Veiculo não existe!");}
+        else {
+            Motorista m = (Motorista) umer.getUser();
+            m.setVeiculo(v);
+        }
+    }
+    
+    private static void listaMotoristaEmp() {
+       List<Motorista> mot = new ArrayList<Motorista>();
+       Motorista m = (Motorista) umer.getUser();
+       mot = m.getEmpresa().getMotoristas();
+       for(Motorista mo : mot)
+            System.out.println(mo.getNome()+"\n");
+    }
+    
+    private static void listaVeiculoEmp() {
+       List<Veiculo> mot = new ArrayList<Veiculo>();
+       Motorista m = (Motorista) umer.getUser();
+       mot = m.getEmpresa().getTaxis();
+       for(Veiculo v : mot)
+            System.out.println(v.getMat()+"\n");
+    }
+    
+    private static void desassociaEmpresa() {
+        Scanner scan = new Scanner(System.in); 
+        System.out.println("Digite o nome da empresa a que se pretende associar:\n");
+        String nome=scan.nextLine();
+        Motorista m = (Motorista) umer.getUser();
+       
+        m.setEmpresa(null);
+        m.getEmpresa().getMotoristas().remove(m);   
+       
+    }
 }
 

@@ -2,7 +2,7 @@
 comment0.params=
 comment0.target=Ligeiro()
 comment1.params=vMed\ preco\ factorF\ matricula\ loc
-comment1.target=Ligeiro(int,\ int,\ int,\ java.lang.String,\ Localizacao)
+comment1.target=Ligeiro(int,\ double,\ int,\ java.lang.String,\ Localizacao)
 comment2.params=l
 comment2.target=Ligeiro(Ligeiro)
 comment3.params=

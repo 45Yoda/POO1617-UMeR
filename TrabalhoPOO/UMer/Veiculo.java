@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Veiculo{
    private int vMed; //Velocidade média por km
-   private int preco; //Preço base por Km
+   private double preco; //Preço base por Km
    private int factorF; //factor de fiabilidade
    private String matricula;
    private List<Cliente> filaEspera;
@@ -22,7 +22,7 @@ public abstract class Veiculo{
        this.localizacao = null;
    }
    
-   public Veiculo(int vMed, int preco, int factorF, String matricula, Localizacao l){
+   public Veiculo(int vMed, double preco, int factorF, String matricula, Localizacao l){
        this.vMed = vMed;
        this.preco = preco;
        this.factorF = factorF;
@@ -49,7 +49,7 @@ public abstract class Veiculo{
        return vMed;
    }
    
-   public int getPreco(){
+   public double getPreco(){
        return preco;
    }
    

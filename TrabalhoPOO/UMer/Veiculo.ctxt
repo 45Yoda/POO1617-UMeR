@@ -2,7 +2,7 @@
 comment0.params=
 comment0.target=Veiculo()
 comment1.params=vMed\ preco\ factorF\ matricula\ l
-comment1.target=Veiculo(int,\ int,\ int,\ java.lang.String,\ Localizacao)
+comment1.target=Veiculo(int,\ double,\ int,\ java.lang.String,\ Localizacao)
 comment10.params=vMed
 comment10.target=void\ setVMed(int)
 comment11.params=preco
@@ -28,7 +28,7 @@ comment2.target=Veiculo(Veiculo)
 comment3.params=
 comment3.target=int\ getVMed()
 comment4.params=
-comment4.target=int\ getPreco()
+comment4.target=double\ getPreco()
 comment5.params=
 comment5.target=int\ getFactorF()
 comment6.params=

@@ -6,7 +6,7 @@ public class Ligeiro extends Veiculo{
        super();
    }
    
-   public Ligeiro(int vMed, int preco, int factorF, String matricula,Localizacao loc){
+   public Ligeiro(int vMed, double preco, int factorF, String matricula,Localizacao loc){
        super(vMed,preco,factorF,matricula,loc);
        
    }
