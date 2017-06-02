@@ -10,6 +10,7 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
+import java.time.LocalDate;
 
 public class UMeRApp implements Serializable
 {
@@ -324,7 +325,7 @@ public class UMeRApp implements Serializable
     private static void avaliaMotorista() throws UtilizadorNaoExisteException {
         //pode nao existir motorista
         Scanner scan = new Scanner(System.in);
-        System.out.println("Digite o email do motorista:\n");
+        System.out.println("Digite o email do motorista:");
         String email=scan.nextLine();
         System.out.println("Classifique o seu motorista (de 0 a 100): ");
         int c = scan.nextInt();
@@ -339,16 +340,43 @@ public class UMeRApp implements Serializable
     }
     
     private static void consultaHistorico() {
+       Scanner scan = new Scanner(System.in);
        Historico h = umer.getUser().getHistorico();
-       StringBuilder sb = new StringBuilder();
-       sb.append(h.toString()).append("\n");
+       int diaIni,mesIni,anoIni,diaFim,mesFim,anoFim;
+       
+       System.out.println("Insira uma data para o ínicio do histórico: ");
+       System.out.println("Dia: ");
+       diaIni = scan.nextInt();
+       System.out.println("Mês: ");
+       mesIni = scan.nextInt();
+       System.out.println("Ano: ");
+       anoIni = scan.nextInt();
+       
+       LocalDate l1 = LocalDate.of(anoIni,mesIni,diaIni);
+       
+       System.out.println("Insira a data para o fim do histórico: ");
+       System.out.println("Dia: ");
+       diaFim = scan.nextInt();
+       System.out.println("Mês: ");
+       mesFim = scan.nextInt();
+       System.out.println("Ano: ");
+       anoFim = scan.nextInt();
+       
+       LocalDate l2 = LocalDate.of(anoFim,mesFim,diaFim);
+       
+       
+       List<Viagem> trips = new ArrayList<Viagem>();
+       trips = h.getBetween(l1,l2);
+       for(int i=0;i<10;i++){
+           System.out.println(trips.get(i));
+       }        
     }
     
-
+    
     private static void associaMotoristaEmp() throws UtilizadorNaoExisteException, EmpresaNaoExisteException{        
 
         Scanner scan = new Scanner(System.in); 
-        System.out.println("Digite o nome da empresa a que se pretende associar:\n");
+        System.out.println("Digite o nome da empresa a que se pretende associar:");
         String nome=scan.nextLine();
         Motorista m = (Motorista) umer.getUser();
 
@@ -366,9 +394,9 @@ public class UMeRApp implements Serializable
     private static void associaVeiculoEmp() throws VeiculoNaoExisteException,EmpresaNaoExisteException {
         
         Scanner scan = new Scanner(System.in); 
-        System.out.println("Digite o nome da empresa a que pretende associar:\n");
+        System.out.println("Digite o nome da empresa a que pretende associar:");
         String nome=scan.nextLine();
-        System.out.println("Indique a matricula do veiculo que pretende associar: \n");
+        System.out.println("Indique a matricula do veiculo que pretende associar: ");
         String mat = scan.nextLine();
         
         //NEW!!!!!!!
@@ -395,19 +423,19 @@ public class UMeRApp implements Serializable
     
     private static void adicionaVeiculo() {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Indique a matricula do veiculo a registar: \n");
+        System.out.println("Indique a matricula do veiculo a registar: ");
         String mat= scan.nextLine();
-        System.out.println("Indique a sua velocidade média: \n");
+        System.out.println("Indique a sua velocidade média: ");
         int velocidade = scan.nextInt();
-        System.out.println("Indique o factor de fiabilidade do veiculo: \n");
+        System.out.println("Indique o factor de fiabilidade do veiculo: ");
         int factorF = scan.nextInt();
-        System.out.println("Indique o preço base por kilometro: \n");
+        System.out.println("Indique o preço base por kilometro: ");
         double preco = scan.nextDouble();
-        System.out.println("Indique a coordenada x do veiculo: \n");
+        System.out.println("Indique a coordenada x do veiculo: ");
         double x = scan.nextDouble();        
-        System.out.println("Indique a coordenada y do veiculo: \n");
+        System.out.println("Indique a coordenada y do veiculo: ");
         double y = scan.nextDouble();
-        System.out.println("O veiculo é ligeiro, carrinha ou moto? (l/c/m): \n");
+        System.out.println("O veiculo é ligeiro, carrinha ou moto? (l/c/m): ");
         String tipo = scan.nextLine();
         Localizacao loc = new Localizacao(x,y);
         if (tipo.equals("l")) {
@@ -418,16 +446,19 @@ public class UMeRApp implements Serializable
             Carrinha car = new Carrinha(velocidade,preco,factorF,mat,loc);
             umer.getVeiculo().put(car.getMat(),(car.clone()));
         }
-        else {
+        else if(tipo.equals("m")){
             Mota mota = new Mota(velocidade,preco,factorF,mat,loc);
             umer.getVeiculo().put(mota.getMat(),(mota.clone()));
+        }
+        else{
+            System.out.println("Esse tipo de veículo não está disponível!");
         }
     }
         
     
     private static void associaVeiculo() throws VeiculoNaoExisteException {
         Scanner scan = new Scanner(System.in);
-        System.out.println("Indique a matricula do veiculo a que se pretende associar: \n");
+        System.out.println("Indique a matricula do veiculo a que se pretende associar: ");
         String mat = scan.nextLine();
         Veiculo v = umer.getVeiculo().get(mat).clone();
         if(v == null){throw new VeiculoNaoExisteException("Veiculo não existe!");}
@@ -455,7 +486,7 @@ public class UMeRApp implements Serializable
     
     private static void desassociaEmpresa() {
         Scanner scan = new Scanner(System.in); 
-        System.out.println("Digite o nome da empresa a que se pretende associar:\n");
+        System.out.println("Digite o nome da empresa a que se pretende associar:");
         String nome=scan.nextLine();
         Motorista m = (Motorista) umer.getUser();
        

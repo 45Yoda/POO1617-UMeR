@@ -1,4 +1,4 @@
-import java.util.Calendar;
+import java.time.LocalDate;
 
 
 public class Viagem{
@@ -9,7 +9,7 @@ public class Viagem{
     private Cliente cliente;
     private Veiculo veiculo;
     private double distancia;
-    private Calendar data;
+    private LocalDate data;
     
     
     public Viagem() {
@@ -34,7 +34,7 @@ public class Viagem{
         this.data = v.getData();
     }
     
-    public Viagem(double preco,Localizacao inicial,Localizacao fim,Motorista m, Cliente c,Veiculo v,Calendar data) {
+    public Viagem(double preco,Localizacao inicial,Localizacao fim,Motorista m, Cliente c,Veiculo v,LocalDate data) {
         this.preco=preco;
         this.inicial=inicial;
         this.fim=fim;
@@ -54,7 +54,7 @@ public class Viagem{
     public Cliente getCliente() {return this.cliente;}
     public Veiculo getVeiculo() {return this.veiculo;}
     public double getDistancia() {return this.distancia;}
-    public Calendar getData(){return this.data;}
+    public LocalDate getData(){return this.data;}
     
     
     public void setPreco(double p) {this.preco=p;}
@@ -64,7 +64,7 @@ public class Viagem{
     public void setCliente(Cliente c) {this.cliente=c.clone();}
     public void setVeiculo(Veiculo v) {this.veiculo=v.clone();}
     public void setDistancia() {this.distancia=this.inicial.calculaDist(this.fim);}
-    public void setData(Calendar data) { this.data = data; }
+    public void setData(LocalDate data) { this.data = data; }
     
      public Viagem clone(){
        return new  Viagem(this);
