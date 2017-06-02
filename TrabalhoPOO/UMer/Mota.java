@@ -1,22 +1,23 @@
 
-public class Carrinha extends Veiculo{
+
+public class Mota extends Veiculo{
 
    
-   public Carrinha(){
+   public Mota(){
        super();
    }
    
-   public Carrinha(int vMed, double preco, int factorF, String matricula, Localizacao loc){
+   public Mota(int vMed, double preco, int factorF, String matricula, Localizacao loc){
        super(vMed,preco,factorF,matricula,loc);
        
    }
    
-   public Carrinha(Carrinha l){
+   public Mota(Mota l){
        super(l);
    }
    
-   public Carrinha clone(){
-       return new Carrinha(this);
+   public Mota clone(){
+       return new Mota(this);
    }
    
    public boolean equals(Object o){
@@ -26,7 +27,7 @@ public class Carrinha extends Veiculo{
        if((o==null) || o.getClass() != this.getClass()){
            return false;
        }
-       Carrinha l = (Carrinha) o;
+       Mota l = (Mota) o;
        return super.equals(o);
    }
     
@@ -37,4 +38,3 @@ public class Carrinha extends Veiculo{
        return sb.toString();
    }
 }
-
