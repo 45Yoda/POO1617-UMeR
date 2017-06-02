@@ -124,8 +124,12 @@ public class UMeRApp implements Serializable
             mCliente.executa();
             
             switch(mCliente.getOpcao()){
-                case 1: avaliaMotorista();
-                        break;
+                case 1: try{avaliaMotorista();
+                            break;
+                        }
+                        catch(UtilizadorNaoExisteException e){
+                            System.out.println(e);
+                        }
                 case 2: consultaHistorico();
                         break;
                 case 3: carregaMenuSolicita();
@@ -328,19 +332,25 @@ public class UMeRApp implements Serializable
         int i;
         int c;
         StringBuilder sb = new StringBuilder();
-        for(i=ut.size()-1,c=0;c<10;c++,i--)
+        for(i=ut.size(),c=0;c<10;c++,i--)
             sb.append(ut.get(i).getNome()).append("\n");
     }
     
-    private static void avaliaMotorista() {
+    private static void avaliaMotorista() throws UtilizadorNaoExisteException {
         //pode nao existir motorista
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite o email do motorista:\n");
         String email=scan.nextLine();
         System.out.println("Classifique o seu motorista (de 0 a 100): ");
         int c = scan.nextInt();
-        Motorista m = (Motorista) umer.getUtilizadores().get(email);
-        m.classMotorista(c);
+        if(c>0 && c<100){
+            Motorista m = (Motorista) umer.getUtilizadores().get(email);
+            if(m == null){throw new UtilizadorNaoExisteException("Esse motorista não está registado");}
+            m.classMotorista(c);
+        }
+        else{
+            System.out.println("A avaliação não se encontra dentro dos limites");
+        }
     }
     
     private static void consultaHistorico() {
