@@ -89,7 +89,7 @@ public abstract class Utilizador{
        this.data = data;
    }
    
-   public void setViagem(Historico h){
+   public void setHistorico(Historico h){
        this.historico = h.clone();
    }
    

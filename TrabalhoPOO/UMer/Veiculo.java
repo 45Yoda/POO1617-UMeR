@@ -10,7 +10,8 @@ public abstract class Veiculo{
    private List<Cliente> filaEspera;
    private boolean uso;
    private Localizacao localizacao; //localização atual do veiculo
-   
+   private Historico historico; //histórico das viagens realizadas
+      
    //Construtores
    public Veiculo (){
        this.vMed = 0;
@@ -20,7 +21,8 @@ public abstract class Veiculo{
        this.filaEspera = new ArrayList<>();
        this.uso=false;
        this.localizacao = null;
-   }
+       this.historico=null;
+    }
    
    public Veiculo(int vMed, double preco, int factorF, String matricula, Localizacao l){
        this.vMed = vMed;
@@ -30,6 +32,7 @@ public abstract class Veiculo{
        this.filaEspera = new ArrayList<Cliente>();
        this.uso=false;
        this.localizacao = l;
+       this.historico=null;
    }
    
    public Veiculo (Veiculo v){
@@ -40,7 +43,8 @@ public abstract class Veiculo{
        this.filaEspera = v.getFila();
        this.uso=v.getUso();
        this.localizacao = v.getLocalizacao();
-   }
+       this.historico=v.getHistorico();
+    }
    
    
    //gets
@@ -73,6 +77,10 @@ public abstract class Veiculo{
        return this.localizacao;
    }
    
+   public Historico getHistorico(){
+       return (Historico) this.historico;
+   }
+   
    //sets
    
    public void setVMed(int vMed){
@@ -103,7 +111,9 @@ public abstract class Veiculo{
        this.localizacao = loc;
    }
    
-   
+   public void setHistorico(Historico h){
+       this.historico = h.clone();
+   }
    //Clone do Veiculo
    public abstract Veiculo clone();
    
@@ -122,7 +132,8 @@ public abstract class Veiculo{
               && v.getMat().equals(matricula)
               && v.getFila().equals(filaEspera)
               && v.getUso()==uso
-              && v.getLocalizacao().equals(localizacao);
+              && v.getLocalizacao().equals(localizacao)
+              && v.getHistorico().equals(historico);
    }
    
    //Método toString

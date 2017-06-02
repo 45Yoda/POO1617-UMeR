@@ -165,7 +165,7 @@ public class UMeR
    public void registarUtilizador(Utilizador user) throws UtilizadorExisteException{
        String mail = user.getEmail();
        if(utilizadores.containsKey(mail)){ throw new UtilizadorExisteException("Utilizador já existente");}
-       else utilizadores.put(mail,user);
+       else {utilizadores.put(mail,user);System.out.println("Sucesso");}
    }
    
    //Iniciar a sessão
@@ -181,9 +181,9 @@ public class UMeR
        this.user = null;
    }
    
-   /**?????**/
+   /**Abre os dados**/
    public static UMeR initApp() throws IOException, ClassNotFoundException{
-       ObjectInputStream ois = new ObjectInputStream(new FileInputStream("umer.data"));
+       ObjectInputStream ois = new ObjectInputStream(new FileInputStream("dadosUMeR.txt"));
        UMeR umer = (UMeR) ois.readObject();
        ois.close();
        return umer;
@@ -192,7 +192,7 @@ public class UMeR
    
    /****Gravar****/
    public void gravar() throws IOException{
-       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("umer.data"));
+       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("dadosUMeR.txt"));
        oos.writeObject(this);
        
        oos.flush();

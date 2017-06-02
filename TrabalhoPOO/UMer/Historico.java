@@ -1,9 +1,10 @@
-
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import static java.util.stream.Collectors.toMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class Historico{
     private List<Viagem> viagens;
@@ -35,6 +36,24 @@ public class Historico{
         for(Viagem v: viagens)
             this.viagens.add(v.clone());
     }
+    
+    
+    //NEW !!!!!!!
+    public List<Viagem> getBetween(LocalDate data1, LocalDate data2){
+        List<Viagem> trips = new ArrayList<Viagem>();
+        
+        for(Viagem v: this.viagens){
+            LocalDate data = v.getData();
+            if(data.isAfter(data1) && data.isBefore(data2)){
+                trips.add(v.clone());
+            }
+        }
+        
+        return trips;
+    }
+    //NEW !!!!!!
+    
+    
     
     public int quantViagens(){
         return this.viagens.size();
