@@ -9,6 +9,7 @@ public class UMeR
 {
    private Map<String,Utilizador> utilizadores; //Email
    private Map<String,Veiculo> veiculo; //Matricula;
+   private Map<Veiculo,Motorista> motorista;
    private Map<String,Empresa> empresa;//nome da empresa
    private Utilizador user;
    

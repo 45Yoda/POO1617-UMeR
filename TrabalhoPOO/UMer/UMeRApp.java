@@ -190,8 +190,8 @@ public class UMeRApp implements Serializable
              //           break;
                 case 8: sinalizaDisp();
                         break;
-                //case 9: desassociaEmpresa();
-                 //       break;
+                case 9: desassociaEmpresa();
+                        break;
                 case 10: umer.fechaSessao();
             }
         }while(mMotoristaEmp.getOpcao() != 0);
@@ -359,7 +359,6 @@ public class UMeRApp implements Serializable
         System.out.println("Indique a matricula do veiculo que pretende associar: \n");
         String mat = scan.nextLine();
         
-        //NEW!!!!!!!
         Veiculo v = umer.getVeiculo().get(mat);
         if(v == null){throw new VeiculoNaoExisteException("Veiculo não existe!");}
         
@@ -443,18 +442,10 @@ public class UMeRApp implements Serializable
     
     private static void desassociaEmpresa() {
         Scanner scan = new Scanner(System.in); 
-        System.out.println("Digite o nome da empresa a que se pretende associar:\n");
-        String nome=scan.nextLine();
         Motorista m = (Motorista) umer.getUser();
-        if(umer.getEmpresa().get(nome) != null){
-            m.setEmpresa(null);
-            m.getEmpresa().getMotoristas().remove(m);   
-        }
-        else{
-            throw new EmpresaNaoExisteException("Esta Empresa não existe!");
-        }
+        m.getEmpresa().getMotoristas().remove(m);   
         m.setEmpresa(null);
-        m.getEmpresa().getMotoristas().remove(m);
+
     }
 }
 
