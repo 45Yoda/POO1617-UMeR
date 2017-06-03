@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.lang.Math;
+
 
 public class Viagem{
     private double preco;
@@ -106,4 +108,10 @@ public class Viagem{
        
        return sb.toString();
    }
+   
+   public double calculaGanho() {
+       double preco = this.getPreco();
+       double precoSup = this.getDistancia()*this.getVeiculo().getPreco();
+       return Math.abs(preco-precoSup);
+    }
 }
