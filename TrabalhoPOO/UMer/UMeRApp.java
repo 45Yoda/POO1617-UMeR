@@ -600,8 +600,9 @@ public class UMeRApp implements Serializable
             } 
         }
         v.getMotorista().setDisp(false);
-        System.out.println("O táxi demorará cerda de "+ distmin/v.getVMed() +"minutos a chegar.");
-        //wait ou o crlh
+        double tempo=distmin/v.getVMed();
+        System.out.println("O táxi demorará cerda de "+ tempo +"minutos a chegar.");
+        //wait(tempo*1000);
         fazerViagem(v,c);
     }
     private static void fazerViagem(Veiculo v,Cliente c) {
@@ -615,7 +616,7 @@ public class UMeRApp implements Serializable
         double tempo = dist/v.getVMed();
         double preco = dist*v.getPreco();
         System.out.println("A viagem terá a duração de "+tempo+" minutos com o custo de "+preco);
-        //wait ou o crlh
+        //wait(tempo*1000);
         c.setLocalizacao(loc);
         v.setLocalizacao(loc);
         
