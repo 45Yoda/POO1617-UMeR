@@ -90,7 +90,7 @@ public abstract class Utilizador implements Serializable{
    }
    
    public void setHistorico(Historico h){
-       this.historico = h.clone();
+       this.historico = h;
    }
    
    

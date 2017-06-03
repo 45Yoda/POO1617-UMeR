@@ -66,9 +66,9 @@ public class Viagem{
     public void setPreco(double p) {this.preco=p;}
     public void setInicial(Localizacao i) {this.inicial=i;}
     public void setFim(Localizacao f) {this.fim=f;}
-    public void setMotorista(Motorista m) {this.motorista=m.clone();}
-    public void setCliente(Cliente c) {this.cliente=c.clone();}
-    public void setVeiculo(Veiculo v) {this.veiculo=v.clone();}
+    public void setMotorista(Motorista m) {this.motorista=m;}
+    public void setCliente(Cliente c) {this.cliente=c;}
+    public void setVeiculo(Veiculo v) {this.veiculo=v;}
     public void setDistancia() {this.distancia=this.inicial.calculaDist(this.fim);}
     public void setData(LocalDate data) { this.data = data; }
     public void setTempo(double temp){this.tempo = temp;}

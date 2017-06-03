@@ -28,14 +28,14 @@ public class Historico{
     public List<Viagem> getViagens(){
         List<Viagem> aux = new ArrayList<Viagem>();
         for(Viagem v: this.viagens)
-            aux.add(v.clone());
+            aux.add(v);
                 
         return aux;
     }
     
     public void setViagens(List<Viagem> viagens){
         for(Viagem v: viagens)
-            this.viagens.add(v.clone());
+            this.viagens.add(v);
     }
     
     
@@ -46,7 +46,7 @@ public class Historico{
         for(Viagem v: this.viagens){
             LocalDate data = v.getData();
             if(data.isAfter(data1) && data.isBefore(data2)){
-                trips.add(v.clone());
+                trips.add(v);
             }
         }
         
@@ -63,7 +63,7 @@ public class Historico{
     }
     
     public void addViagem(Viagem v){
-        this.viagens.add(v.clone());
+        this.viagens.add(v);
     }
     
     public Historico clone(){
