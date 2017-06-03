@@ -470,8 +470,10 @@ public class UMeRApp implements Serializable
         if(v == null){throw new VeiculoNaoExisteException("Veiculo não existe!");}
         else {
             Motorista m = (Motorista) umer.getUser();
-            m.getVeiculo().setUso(false);
-            m.getVeiculo().setMotorista(null);
+            if(m.getVeiculo()!=null){
+                m.getVeiculo().setUso(false);
+                m.getVeiculo().setMotorista(null);
+            }   
             m.setVeiculo(v);
             m.getVeiculo().setUso(true);
             m.getVeiculo().setMotorista(m);

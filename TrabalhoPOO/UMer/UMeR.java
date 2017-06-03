@@ -80,32 +80,20 @@ public class UMeR implements Serializable{
    
    //Utilizadores do UMeR
    public Map<String,Empresa> getEmpresa(){
-       empresa = new TreeMap<String,Empresa>();
-       
-       for(Map.Entry<String,Empresa> entry: this.empresa.entrySet())
-            empresa.put(entry.getKey(),entry.getValue());
             
-       return empresa;
+       return this.empresa;
    }
    
    //veiculos da UMeR
    public Map<String,Veiculo> getVeiculo(){
-       veiculo = new TreeMap<String,Veiculo>();
-       
-       for(Map.Entry<String,Veiculo> entry: this.veiculo.entrySet())
-            veiculo.put(entry.getKey(),entry.getValue());
-       
-       return veiculo;
+      
+       return this.veiculo;
    }
    
    //utilizadores da umer
    public Map<String,Utilizador> getUtilizadores(){
-       utilizadores = new TreeMap<String,Utilizador>();
        
-       for(Map.Entry<String,Utilizador> entry: this.utilizadores.entrySet())
-            utilizadores.put(entry.getKey(),entry.getValue());
-            
-       return utilizadores;
+       return this.utilizadores;
    }
    //sets
    
