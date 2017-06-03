@@ -36,6 +36,7 @@ public class UMeRApp implements Serializable
      private static void carregaMenus(){
         String [] principal = {"Iniciar Sessão",
                                "Registar Utilizador",
+                               "Regista Empresa",
                                "Lista de Empresas",
                                "Top 10 Clientes",
                                "Top 5 Motoristas"};
@@ -106,11 +107,13 @@ public class UMeRApp implements Serializable
                         break;
                 case 2: registaUtilizador(); 
                         break;
-                case 3: listaEmpresas(); 
+                case 3: registaEmpresa();
                         break;
-                case 4: top10Clientes(); 
+                case 4: listaEmpresas(); 
                         break;
-                case 5: top5Motoristas(); 
+                case 5: top10Clientes(); 
+                        break;
+                case 6: top5Motoristas(); 
                         break;
            } 
         }while(mMain.getOpcao() != 0); 
@@ -429,8 +432,6 @@ public class UMeRApp implements Serializable
         String mat= scan.nextLine();
         System.out.println("Indique a sua velocidade média: ");
         int velocidade = scan.nextInt();
-        System.out.println("Indique o factor de fiabilidade do veiculo: ");
-        int factorF = scan.nextInt();
         System.out.println("Indique o preço base por kilometro: ");
         double preco = scan.nextDouble();
         System.out.println("Indique a coordenada x do veiculo: ");
@@ -443,16 +444,18 @@ public class UMeRApp implements Serializable
         System.out.println("Aguarde.....");
         Localizacao loc = new Localizacao(x,y);
         if (tipo.equals("l")) {
-            Ligeiro lig = new Ligeiro(velocidade,preco,factorF,mat,loc);
-            umer.getVeiculo().put(lig.getMat(),lig);
+
+            Ligeiro lig = new Ligeiro(velocidade,preco,mat,loc);
+            umer.getVeiculo().put(lig.getMat(),lig.clone());
         }
         else if (tipo.equals("c")) {
-            Carrinha car = new Carrinha(velocidade,preco,factorF,mat,loc);
-            umer.getVeiculo().put(car.getMat(),(car));
+            Carrinha car = new Carrinha(velocidade,preco,mat,loc);
+            umer.getVeiculo().put(car.getMat(),(car.clone()));
         }
         else if(tipo.equals("m")){
-            Mota mota = new Mota(velocidade,preco,factorF,mat,loc);
-            umer.getVeiculo().put(mota.getMat(),(mota));
+            Mota mota = new Mota(velocidade,preco,mat,loc);
+            umer.getVeiculo().put(mota.getMat(),(mota.clone()));
+
         }
         else{
             System.out.println("Esse tipo de veículo não está disponível!");
@@ -661,6 +664,24 @@ public class UMeRApp implements Serializable
             System.out.println(lista.get(i).getNome());
     }
     
-   
+   private static void registaEmpresa(){
+        String nome;
+        int motocap,capacidade;
+        Utilizador uti = null;
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("Insira o nome da empresa: ");
+        nome = input.nextLine();
+        
+        System.out.println("Insira a capacidade de veiculas da empresa: ");
+        capacidade = input.nextInt();
+        
+        System.out.println("Insira a capacidade de motoristas da empresa: ");
+        motocap = input.nextInt();
+        
+        Empresa e = new Empresa(nome,capacidade,motocap);
+        umer.getEmpresa().put(nome,e);
+        
+        
+    }
 }
-

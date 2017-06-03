@@ -245,12 +245,12 @@ public class UMeR implements Serializable{
        return tempReal;
     }
     
-    public double calculaPreco(double distancia,int tempo,Veiculo v){
+    public double calculaPreco(double distancia,double tempo,Veiculo v){
         double tempEst = distancia/v.getVMed();
-        double custoCombinado = (distancia + tempEst) * v.getPreco();
+        double custoCombinado = distancia * v.getPreco();
         double precoTotal;
         if(tempEst - tempo <= tempo*0.25){
-            precoTotal = (distancia + tempo) * v.getPreco();
+            precoTotal = custoCombinado*(tempo/tempEst);
         }
         else{
             precoTotal = custoCombinado;
