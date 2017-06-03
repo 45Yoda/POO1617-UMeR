@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 import java.time.LocalDate;
-import java.util.concurrent.TimeUnit;
 
 public class UMeRApp implements Serializable
 {
@@ -37,7 +36,7 @@ public class UMeRApp implements Serializable
      private static void carregaMenus(){
         String [] principal = {"Iniciar Sessão",
                                "Registar Utilizador",
-                               "Registar Empresa",
+                               "Regista Empresa",
                                "Lista de Empresas",
                                "Top 10 Clientes",
                                "Top 5 Motoristas"};
@@ -225,6 +224,7 @@ public class UMeRApp implements Serializable
     /*****************************************************menuP*****************************************************/  
     private static void registaUtilizador(){
         String email,nome,password,morada,data;
+        Utilizador uti = null;
         Scanner input = new Scanner(System.in);
         mRegistos.executa();
         
@@ -247,9 +247,9 @@ public class UMeRApp implements Serializable
             case 0: input.close();
                     System.out.println("Cancelou o registo");
                     return;
-            case 1: Cliente uti = new Cliente();
+            case 1: uti = new Cliente();
                     break;
-            case 2: Motorista uti = new Motorista();
+            case 2: uti = new Motorista();
                     break;
         }
         
@@ -431,8 +431,6 @@ public class UMeRApp implements Serializable
         String mat= scan.nextLine();
         System.out.println("Indique a sua velocidade média: ");
         int velocidade = scan.nextInt();
-        System.out.println("Indique o factor de fiabilidade do veiculo: ");
-        int factorF = scan.nextInt();
         System.out.println("Indique o preço base por kilometro: ");
         double preco = scan.nextDouble();
         System.out.println("Indique a coordenada x do veiculo: ");
@@ -443,15 +441,15 @@ public class UMeRApp implements Serializable
         String tipo = scan.nextLine();
         Localizacao loc = new Localizacao(x,y);
         if (tipo.equals("l")) {
-            Ligeiro lig = new Ligeiro(velocidade,preco,factorF,mat,loc);
+            Ligeiro lig = new Ligeiro(velocidade,preco,mat,loc);
             umer.getVeiculo().put(lig.getMat(),lig.clone());
         }
         else if (tipo.equals("c")) {
-            Carrinha car = new Carrinha(velocidade,preco,factorF,mat,loc);
+            Carrinha car = new Carrinha(velocidade,preco,mat,loc);
             umer.getVeiculo().put(car.getMat(),(car.clone()));
         }
         else if(tipo.equals("m")){
-            Mota mota = new Mota(velocidade,preco,factorF,mat,loc);
+            Mota mota = new Mota(velocidade,preco,mat,loc);
             umer.getVeiculo().put(mota.getMat(),(mota.clone()));
         }
         else{
@@ -604,9 +602,9 @@ public class UMeRApp implements Serializable
             } 
         }
         v.getMotorista().setDisp(false);
-        int tempo=(int) distmin/v.getVMed();
+        double tempo=distmin/v.getVMed();
         System.out.println("O táxi demorará cerda de "+ tempo +"minutos a chegar.");
-
+        //wait(tempo*1000);
         fazerViagem(v,c);
     }
     
@@ -625,6 +623,7 @@ public class UMeRApp implements Serializable
         c.setLocalizacao(loc);
         v.setLocalizacao(loc);
         
+        //relatorio -> podia ser getdata.now();
         System.out.println("Insira os seguintes dados da viagem");
         System.out.println("Dia: ");
         int diaIni = scan.nextInt();
@@ -634,18 +633,15 @@ public class UMeRApp implements Serializable
         int anoIni = scan.nextInt();
         LocalDate data = LocalDate.of(anoIni,mesIni,diaIni);
         
-        double tempReal = umer.calculaTempo(dist,v);
-        double precoReal = umer.calculaPreco(dist,tempReal,v);
+        //calcular preco e tempo real
         
-        Viagem viagem= new Viagem(precoReal,c.getLocalizacao(),loc,v.getMotorista(),c,v,data,tempReal);
+        Viagem viagem= new Viagem(preco,c.getLocalizacao(),loc,v.getMotorista(),c,v,data,tempo);
         
         v.getMotorista().getHistorico().addViagem(viagem);
         c.getHistorico().addViagem(viagem);
         v.getHistorico().addViagem(viagem);
         
         v.getMotorista().setDisp(true);
-        
-    
     }
     
     private static void top5Motoristas() {
@@ -663,6 +659,24 @@ public class UMeRApp implements Serializable
             System.out.println(lista.get(i).getNome());
     }
     
-   
+   private static void registaEmpresa(){
+        String nome;
+        int motocap,capacidade;
+        Utilizador uti = null;
+        Scanner input = new Scanner(System.in);
+        
+        System.out.println("Insira o nome da empresa: ");
+        nome = input.nextLine();
+        
+        System.out.println("Insira a capacidade de veiculas da empresa: ");
+        capacidade = input.nextInt();
+        
+        System.out.println("Insira a capacidade de motoristas da empresa: ");
+        motocap = input.nextInt();
+        
+        Empresa e = new Empresa(nome,capacidade,motocap);
+        umer.getEmpresa().put(nome,e);
+        
+        
+    }
 }
-

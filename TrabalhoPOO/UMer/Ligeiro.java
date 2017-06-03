@@ -7,8 +7,8 @@ public class Ligeiro extends Veiculo implements Serializable{
        super();
    }
    
-   public Ligeiro(int vMed, double preco, int factorF, String matricula,Localizacao loc){
-       super(vMed,preco,factorF,matricula,loc);
+   public Ligeiro(int vMed, double preco, String matricula,Localizacao loc){
+       super(vMed,preco,matricula,loc);
        
    }
    

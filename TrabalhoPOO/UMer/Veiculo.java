@@ -28,10 +28,10 @@ public abstract class Veiculo implements Serializable{
        this.motorista = null;
     }
    
-   public Veiculo(int vMed, double preco, int fiabilidade, String matricula, Localizacao l){
+   public Veiculo(int vMed, double preco, String matricula, Localizacao l){
        this.vMed = vMed;
        this.preco = preco;
-       this.fiabilidade = fiabilidade;
+       this.fiabilidade = this.getFiabilidade();
        this.matricula = matricula;
        this.filaEspera = new ArrayList<Cliente>();
        this.uso=false;
