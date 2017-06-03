@@ -33,7 +33,7 @@ public class UMeRApp implements Serializable
         System.out.println("Até breve!");
     }
        
-     public static void carregaMenus(){
+     private static void carregaMenus(){
         String [] principal = {"Iniciar Sessão",
                                "Registar Utilizador",
                                "Lista de Empresas",
@@ -376,7 +376,7 @@ public class UMeRApp implements Serializable
        
        List<Viagem> trips = new ArrayList<Viagem>();
        trips = h.getBetween(l1,l2);
-       for(int i=0;i<10;i++){
+       for(int i=0;i<trips.size()-1;i++){
            System.out.println(trips.get(i));
        }        
     }
@@ -446,7 +446,7 @@ public class UMeRApp implements Serializable
         System.out.println("O veiculo é ligeiro, carrinha ou moto? (l/c/m): ");
         String tipo = scan.nextLine();
         Localizacao loc = new Localizacao(x,y);
-        if (tipo.equals("l")) {
+        /*if (tipo.equals("l")) {
             Ligeiro lig = new Ligeiro(velocidade,preco,factorF,mat,loc);
             umer.getVeiculo().put(lig.getMat(),lig.clone());
         }
@@ -460,7 +460,7 @@ public class UMeRApp implements Serializable
         }
         else{
             System.out.println("Esse tipo de veículo não está disponível!");
-        }
+        }*/
     }
         
     

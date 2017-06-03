@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.toMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Collections;
 
 public class Historico{
     private List<Viagem> viagens;
@@ -48,6 +49,8 @@ public class Historico{
                 trips.add(v.clone());
             }
         }
+        
+        Collections.sort(trips,new ComparatorData());
         
         return trips;
     }

@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.params=
 comment0.target=Carrinha()
-comment1.params=vMed\ preco\ factorF\ matricula\ loc
-comment1.target=Carrinha(int,\ double,\ int,\ java.lang.String,\ Localizacao)
+comment1.params=vMed\ preco\ factorF\ matricula\ loc\ mot
+comment1.target=Carrinha(int,\ double,\ int,\ java.lang.String,\ Localizacao,\ Motorista)
 comment2.params=l
 comment2.target=Carrinha(Carrinha)
 comment3.params=

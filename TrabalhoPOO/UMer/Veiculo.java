@@ -11,7 +11,8 @@ public abstract class Veiculo{
    private boolean uso;
    private Localizacao localizacao; //localização atual do veiculo
    private Historico historico; //histórico das viagens realizadas
-      
+   private Motorista motorista;
+   
    //Construtores
    public Veiculo (){
        this.vMed = 0;
@@ -22,9 +23,10 @@ public abstract class Veiculo{
        this.uso=false;
        this.localizacao = null;
        this.historico=null;
+       this.motorista = null;
     }
    
-   public Veiculo(int vMed, double preco, int factorF, String matricula, Localizacao l){
+   public Veiculo(int vMed, double preco, int factorF, String matricula, Localizacao l, Motorista mot){
        this.vMed = vMed;
        this.preco = preco;
        this.factorF = factorF;
@@ -33,6 +35,7 @@ public abstract class Veiculo{
        this.uso=false;
        this.localizacao = l;
        this.historico=null;
+       this.motorista = mot;
    }
    
    public Veiculo (Veiculo v){
@@ -44,6 +47,7 @@ public abstract class Veiculo{
        this.uso=v.getUso();
        this.localizacao = v.getLocalizacao();
        this.historico=v.getHistorico();
+       this.motorista = v.getMotorista();
     }
    
    
@@ -81,6 +85,11 @@ public abstract class Veiculo{
        return (Historico) this.historico;
    }
    
+   
+   public Motorista getMotorista(){
+       return this.motorista;
+    }
+   
    //sets
    
    public void setVMed(int vMed){
@@ -114,6 +123,11 @@ public abstract class Veiculo{
    public void setHistorico(Historico h){
        this.historico = h.clone();
    }
+   
+   public void setMotorista(Motorista m){
+       this.motorista = m;
+    }
+    
    //Clone do Veiculo
    public abstract Veiculo clone();
    
@@ -133,7 +147,8 @@ public abstract class Veiculo{
               && v.getFila().equals(filaEspera)
               && v.getUso()==uso
               && v.getLocalizacao().equals(localizacao)
-              && v.getHistorico().equals(historico);
+              && v.getHistorico().equals(historico)
+              && v.getMotorista().equals(motorista);
    }
    
    //Método toString
@@ -148,6 +163,7 @@ public abstract class Veiculo{
            sb.append(c).append("\n");
         }
        sb.append("A localização é: ").append(localizacao).append("\n");
+       sb.append("O motorista é: ").append(motorista).append("\n");
        return sb.toString();
    }
 }
