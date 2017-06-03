@@ -472,7 +472,11 @@ public class UMeRApp implements Serializable
         if(v == null){throw new VeiculoNaoExisteException("Veiculo não existe!");}
         else {
             Motorista m = (Motorista) umer.getUser();
+            m.getVeiculo().setUso(false);
+            m.getVeiculo().setMotorista(null);
             m.setVeiculo(v);
+            m.getVeiculo().setUso(true);
+            m.getVeiculo().setMotorista(m);
         }
     }
     
@@ -583,25 +587,31 @@ public class UMeRApp implements Serializable
            System.out.println("O total faturado pela empresa nesse periodo foi de: "+total);
         
     }
-    /*
+    
     private static void solTaxiProx() {
         Scanner scan = new Scanner(System.in);
         System.out.println("Indique a coordenada x do local de entrada: ");
         double xi = scan.nextDouble();        
         System.out.println("Indique a coordenada y do local de entrada: ");
         double yi = scan.nextDouble();
-        Veiculo v = new Veiculo();
+        //Veiculo v = new Veiculo();
         double distmin=-1;
         Localizacao loc = new Localizacao(xi,yi);
-        for (Veiculo a : umer.getVeiculo().values()) {
+        List<Veiculo> lista = new ArrayList<>();
+        lista = umer.getVeiculo().values().stream().
+                filter(v->v.getUso()==true && v.getMotorista().getDisp()==true).
+                collect(Collectors.toList());
+        for (Veiculo a : lista) {
             double dist =a.getLocalizacao().calculaDist(loc);
             if(distmin==-1 || distmin>dist) {
                 distmin=dist;
-                v=a.clone();
-            }
-                
+                //v=a.clone();
+            } 
         }
-    }*/
+        //v.getMotorista().setDisp(false);
+        System.out.println("O táxi demorará cerda de "+ distmin/*/v.getVMed() */+"minutos a chegar.");
+        
+    }
     
     private static void registaViagem() {
         Scanner scan = new Scanner(System.in); 

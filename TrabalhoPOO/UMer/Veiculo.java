@@ -8,7 +8,7 @@ public abstract class Veiculo{
    private int factorF; //factor de fiabilidade
    private String matricula;
    private List<Cliente> filaEspera;
-   private boolean uso;
+   private boolean uso; //se está a ser usado por um motorista;
    private Localizacao localizacao; //localização atual do veiculo
    private Historico historico; //histórico das viagens realizadas
    private Motorista motorista;
@@ -26,7 +26,7 @@ public abstract class Veiculo{
        this.motorista = null;
     }
    
-   public Veiculo(int vMed, double preco, int factorF, String matricula, Localizacao l, Motorista mot){
+   public Veiculo(int vMed, double preco, int factorF, String matricula, Localizacao l){
        this.vMed = vMed;
        this.preco = preco;
        this.factorF = factorF;
@@ -35,7 +35,7 @@ public abstract class Veiculo{
        this.uso=false;
        this.localizacao = l;
        this.historico=null;
-       this.motorista = mot;
+       this.motorista = null;
    }
    
    public Veiculo (Veiculo v){
