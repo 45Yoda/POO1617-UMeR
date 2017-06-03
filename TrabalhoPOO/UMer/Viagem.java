@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 
-
 public class Viagem{
     private double preco;
     private Localizacao inicial;
@@ -10,6 +9,7 @@ public class Viagem{
     private Veiculo veiculo;
     private double distancia;
     private LocalDate data;
+    private double tempo;
     
     
     public Viagem() {
@@ -21,6 +21,7 @@ public class Viagem{
         this.veiculo=null;
         this.distancia=0;
         this.data = null;
+        this.tempo = 0;
     }
     
     public Viagem(Viagem v) {
@@ -32,9 +33,10 @@ public class Viagem{
         this.veiculo=v.getVeiculo();
         this.distancia=v.getDistancia();
         this.data = v.getData();
+        this.tempo = v.getTempo();
     }
     
-    public Viagem(double preco,Localizacao inicial,Localizacao fim,Motorista m, Cliente c,Veiculo v,LocalDate data) {
+    public Viagem(double preco,Localizacao inicial,Localizacao fim,Motorista m, Cliente c,Veiculo v,LocalDate data, double temp) {
         this.preco=preco;
         this.inicial=inicial;
         this.fim=fim;
@@ -43,6 +45,7 @@ public class Viagem{
         this.veiculo=v;
         this.setDistancia();
         this.data = data;
+        this.tempo = temp;
     }
     
     //gets
@@ -55,6 +58,7 @@ public class Viagem{
     public Veiculo getVeiculo() {return this.veiculo;}
     public double getDistancia() {return this.distancia;}
     public LocalDate getData(){return this.data;}
+    public double getTempo(){return this.tempo;}
     
     
     public void setPreco(double p) {this.preco=p;}
@@ -65,6 +69,7 @@ public class Viagem{
     public void setVeiculo(Veiculo v) {this.veiculo=v.clone();}
     public void setDistancia() {this.distancia=this.inicial.calculaDist(this.fim);}
     public void setData(LocalDate data) { this.data = data; }
+    public void setTempo(double temp){this.tempo = temp;}
     
      public Viagem clone(){
        return new  Viagem(this);
@@ -82,7 +87,8 @@ public class Viagem{
               v.getCliente().equals(cliente) &&
               v.getVeiculo().equals(veiculo) &&
               v.getDistancia() == distancia &&
-              v.getData().equals(data);
+              v.getData().equals(data) &&
+              v.getTempo() == tempo;
    }
    
    //Método toString
@@ -96,6 +102,7 @@ public class Viagem{
        sb.append("Motorista: ").append(motorista.toString()).append("\n");       
        sb.append("Distancia: ").append(distancia).append("\n");
        sb.append("Data: ").append(data).append("\n");
+       sb.append("Tempo: ").append(tempo).append("\n");
        
        return sb.toString();
    }

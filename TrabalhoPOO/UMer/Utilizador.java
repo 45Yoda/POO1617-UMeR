@@ -1,5 +1,4 @@
 
-
 public abstract class Utilizador{
    private String email; //email do user
    private String nome; //nome do user
