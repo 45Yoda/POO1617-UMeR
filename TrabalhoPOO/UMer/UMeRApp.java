@@ -207,13 +207,13 @@ public class UMeRApp implements Serializable
     private static void carregaMenuSolicita(){
         do{
             mSolicitar.executa();
-            /*
+            
             switch(mSolicitar.getOpcao()){
                 case 1: solTaxiProx();
                         break;
-                case 2: solTaxiEsp();
-                        break;
-            }*/
+             //   case 2: solTaxiEsp();
+               //         break;
+            }
         }while(mSolicitar.getOpcao() != 0);
     }
     
@@ -320,7 +320,7 @@ public class UMeRApp implements Serializable
         int i;
 
         for(i=ut.size()-1;i>=0;i--)
-           System.out.println(ut.get(i).getNome()+"\n");
+           System.out.println(ut.get(i).getNome());
 
     }
     
@@ -415,7 +415,7 @@ public class UMeRApp implements Serializable
     private static void sinalizaDisp() {
         Motorista m = (Motorista) umer.getUser();
         Scanner scan = new Scanner(System.in); 
-        System.out.println("Disponivel? (s/n)\n");
+        System.out.println("Disponivel? (s/n)");
         String r = scan.nextLine();
         if (r.equals("s")) m.setDisp(true);
         else m.setDisp(false);
@@ -438,7 +438,7 @@ public class UMeRApp implements Serializable
         System.out.println("O veiculo é ligeiro, carrinha ou moto? (l/c/m): ");
         String tipo = scan.nextLine();
         Localizacao loc = new Localizacao(x,y);
-        /*if (tipo.equals("l")) {
+        if (tipo.equals("l")) {
             Ligeiro lig = new Ligeiro(velocidade,preco,factorF,mat,loc);
             umer.getVeiculo().put(lig.getMat(),lig.clone());
         }
@@ -452,7 +452,7 @@ public class UMeRApp implements Serializable
         }
         else{
             System.out.println("Esse tipo de veículo não está disponível!");
-        }*/
+        }
     }
         
     
@@ -477,7 +477,7 @@ public class UMeRApp implements Serializable
        Motorista m = (Motorista) umer.getUser();
        mot = m.getEmpresa().getMotoristas();
        for(Motorista mo : mot)
-            System.out.println(mo.getNome()+"\n");
+            System.out.println(mo.getNome());
     }
     
     private static void listaVeiculoEmp() {
@@ -485,7 +485,7 @@ public class UMeRApp implements Serializable
        Motorista m = (Motorista) umer.getUser();
        mot = m.getEmpresa().getTaxis();
        for(Veiculo v : mot)
-            System.out.println(v.getMat()+"\n");
+            System.out.println(v.getMat());
     }
     
     private static void desassociaEmpresa() {
