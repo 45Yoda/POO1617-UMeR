@@ -57,7 +57,7 @@ public class UMeRApp implements Serializable
                                
         String [] motoristaEmp ={"Adicionar Veiculo",
                                  "Associar Veiculo",
-                                 "Associar Veivulo a empresa",
+                                 "Associar Veiculo a empresa",
                                  "Consultar Historico",
                                  "Lista de Motoristas da Empresa",
                                  "Lista de Viaturas duma Empresa",
@@ -174,7 +174,8 @@ public class UMeRApp implements Serializable
                 case 2: try{associaVeiculo();
                             break;}
                         catch(VeiculoNaoExisteException e){
-                            System.out.println(e);
+                            System.out.print(e);
+                            break;
                         }
                 case 3: try{associaVeiculoEmp();
                             break;}
@@ -194,8 +195,8 @@ public class UMeRApp implements Serializable
                             break;}
                         catch(VeiculoNaoExisteException e){
                             System.out.println(e);
+                            break;
                         }
-                        break;
                 case 9: sinalizaDisp();
                         break;
                 case 10: desassociaEmpresa();
@@ -437,19 +438,21 @@ public class UMeRApp implements Serializable
         System.out.println("Indique a coordenada y do veiculo: ");
         double y = scan.nextDouble();
         System.out.println("O veiculo é ligeiro, carrinha ou moto? (l/c/m): ");
+        scan.nextLine(); //para mandar fora o newline;
         String tipo = scan.nextLine();
+        System.out.println("Aguarde.....");
         Localizacao loc = new Localizacao(x,y);
         if (tipo.equals("l")) {
             Ligeiro lig = new Ligeiro(velocidade,preco,factorF,mat,loc);
-            umer.getVeiculo().put(lig.getMat(),lig.clone());
+            umer.getVeiculo().put(lig.getMat(),lig);
         }
         else if (tipo.equals("c")) {
             Carrinha car = new Carrinha(velocidade,preco,factorF,mat,loc);
-            umer.getVeiculo().put(car.getMat(),(car.clone()));
+            umer.getVeiculo().put(car.getMat(),(car));
         }
         else if(tipo.equals("m")){
             Mota mota = new Mota(velocidade,preco,factorF,mat,loc);
-            umer.getVeiculo().put(mota.getMat(),(mota.clone()));
+            umer.getVeiculo().put(mota.getMat(),(mota));
         }
         else{
             System.out.println("Esse tipo de veículo não está disponível!");
@@ -461,7 +464,7 @@ public class UMeRApp implements Serializable
         Scanner scan = new Scanner(System.in);
         System.out.println("Indique a matricula do veiculo a que se pretende associar: ");
         String mat = scan.nextLine();
-        Veiculo v = umer.getVeiculo().get(mat).clone();
+        Veiculo v = umer.getVeiculo().get(mat);
         if(v == null){throw new VeiculoNaoExisteException("Veiculo não existe!");}
         else {
             Motorista m = (Motorista) umer.getUser();
