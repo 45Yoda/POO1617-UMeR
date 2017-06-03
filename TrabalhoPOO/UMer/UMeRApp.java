@@ -444,17 +444,16 @@ public class UMeRApp implements Serializable
         System.out.println("Aguarde.....");
         Localizacao loc = new Localizacao(x,y);
         if (tipo.equals("l")) {
-
             Ligeiro lig = new Ligeiro(velocidade,preco,mat,loc);
-            umer.getVeiculo().put(lig.getMat(),lig.clone());
+            umer.getVeiculo().put(lig.getMat(),lig);
         }
         else if (tipo.equals("c")) {
             Carrinha car = new Carrinha(velocidade,preco,mat,loc);
-            umer.getVeiculo().put(car.getMat(),(car.clone()));
+            umer.getVeiculo().put(car.getMat(),car);
         }
         else if(tipo.equals("m")){
             Mota mota = new Mota(velocidade,preco,mat,loc);
-            umer.getVeiculo().put(mota.getMat(),(mota.clone()));
+            umer.getVeiculo().put(mota.getMat(),mota);
 
         }
         else{
