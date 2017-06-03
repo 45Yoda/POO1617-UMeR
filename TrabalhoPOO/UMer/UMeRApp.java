@@ -594,22 +594,22 @@ public class UMeRApp implements Serializable
         double xi = scan.nextDouble();        
         System.out.println("Indique a coordenada y do local de entrada: ");
         double yi = scan.nextDouble();
-        //Veiculo v = new Veiculo();
         double distmin=-1;
+        Veiculo v = null;
         Localizacao loc = new Localizacao(xi,yi);
         List<Veiculo> lista = new ArrayList<>();
         lista = umer.getVeiculo().values().stream().
-                filter(v->v.getUso()==true && v.getMotorista().getDisp()==true).
+                filter(p->p.getUso()==true && p.getMotorista().getDisp()==true).
                 collect(Collectors.toList());
         for (Veiculo a : lista) {
             double dist =a.getLocalizacao().calculaDist(loc);
             if(distmin==-1 || distmin>dist) {
                 distmin=dist;
-                //v=a.clone();
+                v=a.clone();
             } 
         }
-        //v.getMotorista().setDisp(false);
-        System.out.println("O táxi demorará cerda de "+ distmin/*/v.getVMed() */+"minutos a chegar.");
+        v.getMotorista().setDisp(false);
+        System.out.println("O táxi demorará cerda de "+ distmin/v.getVMed() +"minutos a chegar.");
         
     }
     
