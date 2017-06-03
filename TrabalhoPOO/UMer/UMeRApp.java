@@ -57,6 +57,7 @@ public class UMeRApp implements Serializable
                                
         String [] motoristaEmp ={"Adicionar Veiculo",
                                  "Associar Veiculo",
+                                 "Associar Veivulo a empresa",
                                  "Consultar Historico",
                                  "Lista de Motoristas da Empresa",
                                  "Lista de Viaturas duma Empresa",
@@ -109,8 +110,8 @@ public class UMeRApp implements Serializable
                         break;
                 case 4: top10Clientes(); 
                         break;
-               /* case 5: top5Motoristas(); 
-                        break;*/
+                case 5: top5Motoristas(); 
+                        break;
            } 
         }while(mMain.getOpcao() != 0); 
     }
