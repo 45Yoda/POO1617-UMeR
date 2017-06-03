@@ -3,10 +3,10 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Serializable;
 
 
-public class UMeR
-{
+public class UMeR implements Serializable{
    private Map<String,Utilizador> utilizadores; //Email
    private Map<String,Veiculo> veiculo; //Matricula;
    private Map<Veiculo,Motorista> motorista;
@@ -172,7 +172,7 @@ public class UMeR
    //Iniciar a sessão
    public void iniciaSessao(String email, String password) throws SemAutorizacaoException{
        Utilizador u = utilizadores.get(email);
-       if(u==null) {throw new SemAutorizacaoException("Utilizador não existente" + email);}
+       if(u==null) {throw new SemAutorizacaoException("Utilizador não existente " + email);}
        if(u.getPass().equals(password)) this.user = u;
        else{ throw new SemAutorizacaoException("Password incorreta");}
     }

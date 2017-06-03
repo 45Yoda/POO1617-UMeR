@@ -1,7 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.io.Serializable;
 
-public class Cliente extends Utilizador{
+public class Cliente extends Utilizador implements Serializable{
    
    private Localizacao localizacao;
    

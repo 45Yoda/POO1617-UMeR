@@ -1,6 +1,6 @@
+import java.io.Serializable;
 
-
-public class Mota extends Veiculo{
+public class Mota extends Veiculo implements Serializable{
 
    
    public Mota(){

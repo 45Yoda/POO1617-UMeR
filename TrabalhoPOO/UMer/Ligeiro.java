@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Ligeiro extends Veiculo{
+public class Ligeiro extends Veiculo implements Serializable{
 
    
    public Ligeiro(){

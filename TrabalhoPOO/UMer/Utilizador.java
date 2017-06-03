@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public abstract class Utilizador{
+public abstract class Utilizador implements Serializable{
    private String email; //email do user
    private String nome; //nome do user
    private String pass; //password do user

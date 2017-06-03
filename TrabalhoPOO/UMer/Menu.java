@@ -3,9 +3,9 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import java.io.Serializable;
 
-
-public class Menu{
+public class Menu implements Serializable{
     // variáveis de instância
     private List<String> opcoes;
     private int op;
@@ -43,8 +43,8 @@ public class Menu{
         System.out.println("ddddds-.ystiflersy+:-oddddddsooooo-`-/ooooooo+:../ooooo");
         System.out.println("ddddddhy.:.:yh:.-+yhdddddddsoooo:.ooooooooooooo/.+ooooo");
         System.out.println("ddddddddyhyyodahhyhddddddddsoooo+`-ooooooooooo+`.oooooo");
-        System.out.println("ddddds:.-sdd..hds:.:sddddddsooooo: /oooooooooo.`ooooooo");
-        System.out.println("dddddhyhdddd-.hdddhyhddddddsoooooo-`++++++++o: /ooooooo");
+        System.out.println("ddddds:.-sdstanhds:.:sddddddsooooo: /oooooooooo.`ooooooo");
+        System.out.println("dddddhyhdddd-.hdddhyhddddddsoooooo-`ooooooooo: /ooooooo");
         System.out.println("dddddddddddd--hddddddddddddsoooooooo/--------+ooooooooo");
         System.out.println("dddddddddddddddddddddddddddsooooooooooooooooooooooooooo");
         System.out.println("dddddddddddddddddddddddddddsooooooooooooooooooooooooooo");
@@ -53,8 +53,8 @@ public class Menu{
         System.out.println("\n ****** Menu ****** ");
         
         for(int i=0;i<this.opcoes.size();i++){
-            System.out.println(i+1);
-            System.out.println(" - ");
+            System.out.print(i+1);
+            System.out.print(" - ");
             System.out.println(this.opcoes.get(i));
         }
         System.out.println("0 - Sair");

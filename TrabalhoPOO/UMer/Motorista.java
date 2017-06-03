@@ -1,8 +1,9 @@
 import java.util.HashMap;
 import java.util.Map;
 import static java.util.stream.Collectors.toMap;
+import java.io.Serializable;
 
-public class Motorista extends Utilizador{
+public class Motorista extends Utilizador implements Serializable{
    
    private int grauC; //grau de cumprimento de horário (0 a 100)
    private int classificacao; //classificação do motorista dada pelo cliente no final da viagem (0 a 100

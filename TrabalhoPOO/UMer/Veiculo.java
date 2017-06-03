@@ -2,8 +2,9 @@
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Random;
+import java.io.Serializable;
 
-public abstract class Veiculo{
+public abstract class Veiculo implements Serializable{
    private int vMed; //Velocidade média por km
    private double preco; //Preço base por Km
    private int fiabilidade; //factor de fiabilidade

@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Carrinha extends Veiculo{
+public class Carrinha extends Veiculo implements Serializable{
 
    
    public Carrinha(){
