@@ -61,6 +61,8 @@ public class UMeRApp implements Serializable
                                  "Consultar Historico",
                                  "Lista de Motoristas da Empresa",
                                  "Lista de Viaturas duma Empresa",
+                                 "Faturado por Empresa",
+                                 "Faturado por Veiculo",
                                  "Registar Viagem",
                                  "Sinalizar Disponibilidade",
                                  "Desassociar Empresa",
@@ -157,8 +159,8 @@ public class UMeRApp implements Serializable
                         
                 case 4: consultaHistorico();
                         break;
-               // case 5: registaViagem();
-                   //     break;
+                case 5: registaViagem();
+                        break;
                 case 6: sinalizaDisp();
                         break;
                 case 7: umer.fechaSessao();
@@ -191,13 +193,21 @@ public class UMeRApp implements Serializable
                         break;
                 case 6: listaVeiculoEmp();
                         break;
-              //  case 7: registaViagem();
-             //           break;
-                case 8: sinalizaDisp();
+                case 7: faturadoEmp();
                         break;
-                case 9: desassociaEmpresa();
+                case 8: try{faturadoVeic();
+                            break;}
+                        catch(VeiculoNaoExisteException e){
+                            System.out.println(e);
+                        }
                         break;
-                case 10: umer.fechaSessao();
+                case 9: registaViagem();
+                        break;
+                case 10: sinalizaDisp();
+                        break;
+                case 11: desassociaEmpresa();
+                        break;
+                case 12: umer.fechaSessao();
             }
         }while(mMotoristaEmp.getOpcao() != 0);
     }
@@ -323,7 +333,6 @@ public class UMeRApp implements Serializable
     }
     
     private static void avaliaMotorista() throws UtilizadorNaoExisteException {
-        //pode nao existir motorista
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite o email do motorista:");
         String email=scan.nextLine();
@@ -485,20 +494,155 @@ public class UMeRApp implements Serializable
     
     private static void desassociaEmpresa() {
         Scanner scan = new Scanner(System.in); 
-<<<<<<< HEAD
+
         Motorista m = (Motorista) umer.getUser();
         m.getEmpresa().getMotoristas().remove(m);   
         m.setEmpresa(null);
 
-=======
-        System.out.println("Digite o nome da empresa a que se pretende associar:");
-        String nome=scan.nextLine();
-        Motorista m = (Motorista) umer.getUser();
+
+    }
+    
+    private static void faturadoEmp() {
+       Scanner scan = new Scanner(System.in);
+       Motorista m = (Motorista) umer.getUser();
+       List<Motorista> mot = new ArrayList<Motorista>();
+       mot=m.getEmpresa().getMotoristas();
+       double total=0;
        
-        m.setEmpresa(null);
-        m.getEmpresa().getMotoristas().remove(m);   
+       int diaIni,mesIni,anoIni,diaFim,mesFim,anoFim;
        
->>>>>>> 81a699e9db7836c10fe55a4f6c47f744b11aed09
+       System.out.println("Insira uma data para o ínicio do histórico: ");
+       System.out.println("Dia: ");
+       diaIni = scan.nextInt();
+       System.out.println("Mês: ");
+       mesIni = scan.nextInt();
+       System.out.println("Ano: ");
+       anoIni = scan.nextInt();
+       
+       LocalDate l1 = LocalDate.of(anoIni,mesIni,diaIni);
+       
+       System.out.println("Insira a data para o fim do histórico: ");
+       System.out.println("Dia: ");
+       diaFim = scan.nextInt();
+       System.out.println("Mês: ");
+       mesFim = scan.nextInt();
+       System.out.println("Ano: ");
+       anoFim = scan.nextInt();
+       
+       LocalDate l2 = LocalDate.of(anoFim,mesFim,diaFim);
+       
+       for(Motorista entry : mot){
+           total+=entry.getHistorico().getBetween(l1,l2).stream().mapToDouble(Viagem::getPreco).sum();
+        }
+
+       for(int i=0;i<10;i++)
+           System.out.println("O total faturado pela empresa nesse periodo foi de: "+total);
+        
+    }
+    
+    private static void faturadoVeic() throws VeiculoNaoExisteException{
+       Scanner scan = new Scanner(System.in);
+       Motorista m = (Motorista) umer.getUser();
+       List<Veiculo> taxis = new ArrayList<Veiculo>();
+       taxis=m.getEmpresa().getTaxis();
+       double total=0;
+       
+       int diaIni,mesIni,anoIni,diaFim,mesFim,anoFim;
+       
+       System.out.println("Indique a matricula do veiculo que pretende consultar: ");
+       String mat=scan.nextLine();
+       
+       if(taxis.stream().anyMatch(f->f.getMat().equals(mat))) {throw new VeiculoNaoExisteException("Veiculo não existe!");}
+       Veiculo v = umer.getVeiculo().get(mat);
+       
+        System.out.println("Insira uma data para o ínicio do histórico: ");
+       System.out.println("Dia: ");
+       diaIni = scan.nextInt();
+       System.out.println("Mês: ");
+       mesIni = scan.nextInt();
+       System.out.println("Ano: ");
+       anoIni = scan.nextInt();
+       
+       LocalDate l1 = LocalDate.of(anoIni,mesIni,diaIni);
+       
+       System.out.println("Insira a data para o fim do histórico: ");
+       System.out.println("Dia: ");
+       diaFim = scan.nextInt();
+       System.out.println("Mês: ");
+       mesFim = scan.nextInt();
+       System.out.println("Ano: ");
+       anoFim = scan.nextInt();
+       
+       LocalDate l2 = LocalDate.of(anoFim,mesFim,diaFim);
+       
+       total+=v.getHistorico().getBetween(l1,l2)
+               .stream().mapToDouble(Viagem::getPreco).sum();
+        
+
+       for(int i=0;i<10;i++)
+           System.out.println("O total faturado pela empresa nesse periodo foi de: "+total);
+        
+    }
+    /*
+    private static void solTaxiProx() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Indique a coordenada x do local de entrada: ");
+        double xi = scan.nextDouble();        
+        System.out.println("Indique a coordenada y do local de entrada: ");
+        double yi = scan.nextDouble();
+        Veiculo v = new Veiculo();
+        double distmin=-1;
+        Localizacao loc = new Localizacao(xi,yi);
+        for (Veiculo a : umer.getVeiculo().values()) {
+            double dist =a.getLocalizacao().calculaDist(loc);
+            if(distmin==-1 || distmin>dist) {
+                distmin=dist;
+                v=a.clone();
+            }
+                
+        }
+    }*/
+    
+    private static void registaViagem() {
+        Scanner scan = new Scanner(System.in); 
+        System.out.println("Indique o email do motorista: ");
+        String motorista = scan.nextLine();
+        System.out.println("Indique o email do cliente: ");
+        String cliente = scan.nextLine();
+        System.out.println("Indique a matricula do veiculo: ");
+        String mat= scan.nextLine();
+        
+        System.out.println("Indique a coordenada x inicial da viagem: ");
+        double xi = scan.nextDouble();        
+        System.out.println("Indique a coordenada y inicial da viagem: ");
+        double yi = scan.nextDouble();
+        Localizacao li = new Localizacao(xi,yi);
+        
+        System.out.println("Indique a coordenada x final da viagem: ");
+        double xf = scan.nextDouble();        
+        System.out.println("Indique a coordenada y final da viagem: ");
+        double yf = scan.nextDouble();
+        Localizacao lf = new Localizacao(xf,yf);
+                
+        System.out.println("Dia: ");
+        int diaIni = scan.nextInt();
+        System.out.println("Mês: ");
+        int mesIni = scan.nextInt();
+        System.out.println("Ano: ");
+        int anoIni = scan.nextInt();
+        LocalDate data = LocalDate.of(anoIni,mesIni,diaIni);
+        
+        Motorista m = (Motorista) umer.getUtilizadores().get(motorista);
+        Cliente c = (Cliente) umer.getUtilizadores().get(cliente);
+        Veiculo v = umer.getVeiculo().get(mat);
+        double preco = v.getPreco()*li.calculaDist(lf);
+        Viagem viagem= new Viagem(preco,li,lf,m,c,v,data);
+        
+        m.getHistorico().addViagem(viagem);
+        c.getHistorico().addViagem(viagem);
+        v.getHistorico().addViagem(viagem);
+        
+        m.setDisp(true);
     }
 }
 
