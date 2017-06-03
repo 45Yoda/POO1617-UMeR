@@ -217,6 +217,49 @@ public class UMeR
        m.setVeiculo(v);
    }
    
+   /****Preço*****/
+   
+   public double calculaTempo(double distancia, Veiculo veiculo){
+       double tempEst = distancia / veiculo.getVMed();
+       double tempFiab = tempEst + (tempEst*((100 - veiculo.getFiabilidade())/100));
+       double tempReal = 0;
+       int meteorologia = fator.getMeteo();
+       int transito = fator.getTran();
+       switch(meteorologia){
+           case 1: tempReal = tempFiab;
+                    break;
+           case 2: tempReal = tempFiab * 1.20;
+                    break;
+           case 3: tempReal = tempFiab * 1.50;
+                    break;
+        }
+       switch(transito){
+           case 1: tempReal = tempReal;
+                    break;
+           case 2: tempReal *= 1.20;
+                    break;
+           case 3: tempReal *= 1.50;
+                    break;
+       }
+        
+       return tempReal;
+    }
+    
+    public double calculaPreco(double distancia,int tempo,Veiculo v){
+        double tempEst = distancia/v.getVMed();
+        double custoCombinado = (distancia + tempEst) * v.getPreco();
+        double precoTotal;
+        if(tempEst - tempo <= tempo*0.25){
+            precoTotal = (distancia + tempo) * v.getPreco();
+        }
+        else{
+            precoTotal = custoCombinado;
+        }
+        
+        return precoTotal;
+    }
+    
+   
    
 }
    
