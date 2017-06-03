@@ -12,7 +12,7 @@ public class UMeR
    private Map<Veiculo,Motorista> motorista;
    private Map<String,Empresa> empresa;//nome da empresa
    private Utilizador user;
-   private Fator fator;
+   private Fatores fator;
    
    public UMeR(){
        this.utilizadores = new TreeMap<String,Utilizador>();

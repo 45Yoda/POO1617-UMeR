@@ -1,11 +1,12 @@
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Veiculo{
    private int vMed; //Velocidade média por km
    private double preco; //Preço base por Km
-   private int factorF; //factor de fiabilidade
+   private int fiabilidade; //factor de fiabilidade
    private String matricula;
    private List<Cliente> filaEspera;
    private boolean uso; //se está a ser usado por um motorista;
@@ -17,7 +18,7 @@ public abstract class Veiculo{
    public Veiculo (){
        this.vMed = 0;
        this.preco = 0;
-       this.factorF = 0;
+       this.fiabilidade = 0;
        this.matricula = " ";
        this.filaEspera = new ArrayList<>();
        this.uso=false;
@@ -26,10 +27,10 @@ public abstract class Veiculo{
        this.motorista = null;
     }
    
-   public Veiculo(int vMed, double preco, int factorF, String matricula, Localizacao l){
+   public Veiculo(int vMed, double preco, int fiabilidade, String matricula, Localizacao l){
        this.vMed = vMed;
        this.preco = preco;
-       this.factorF = factorF;
+       this.fiabilidade = fiabilidade;
        this.matricula = matricula;
        this.filaEspera = new ArrayList<Cliente>();
        this.uso=false;
@@ -41,7 +42,7 @@ public abstract class Veiculo{
    public Veiculo (Veiculo v){
        this.vMed = v.getVMed();
        this.preco = v.getPreco();
-       this.factorF = v.getFactorF();
+       this.fiabilidade = v.getFiabilidade();
        this.matricula = v.getMat();
        this.filaEspera = v.getFila();
        this.uso=v.getUso();
@@ -61,8 +62,15 @@ public abstract class Veiculo{
        return preco;
    }
    
-   public int getFactorF(){
-       return factorF;
+   public int getFiabilidade(){
+       return this.getFiabilidadeRandom();
+   }
+   
+   public int getFiabilidadeRandom(){
+       Random rand = new Random();
+       int n = rand.nextInt(101);
+       setFiabilidade(n);
+       return this.fiabilidade;
    }
   
    public String getMat(){
@@ -100,8 +108,8 @@ public abstract class Veiculo{
        this.preco = preco;
    }
    
-   public void setFactorF(int factorF){
-       this.factorF = factorF;
+   public void setFiabilidade(int fiabilidade){
+       this.fiabilidade = fiabilidade;
    }
    
    public void setMat(String matricula){
@@ -142,7 +150,7 @@ public abstract class Veiculo{
        Veiculo v = (Veiculo) o;
        return v.getVMed() == vMed
               && v.getPreco() == preco
-              && v.getFactorF() == factorF
+              && v.getFiabilidade() == fiabilidade
               && v.getMat().equals(matricula)
               && v.getFila().equals(filaEspera)
               && v.getUso()==uso
@@ -156,7 +164,7 @@ public abstract class Veiculo{
        StringBuilder sb = new StringBuilder();
        sb.append("Velocidade média: ").append(vMed).append("\n");
        sb.append("Preço: ").append(preco).append("€").append("\n");
-       sb.append("Factor de fiabilidade: ").append(factorF).append("\n");
+       sb.append("Factor de fiabilidade: ").append(fiabilidade).append("\n");
        sb.append("Matricula: ").append(matricula).append("\n");
        sb.append("Em uso: ").append(uso).append("\n");
        for(Cliente c : filaEspera){

@@ -604,6 +604,7 @@ public class UMeRApp implements Serializable
         //wait ou o crlh
         fazerViagem(v,c);
     }
+    
     private static void fazerViagem(Veiculo v,Cliente c) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Indique a coordenada x do local de destino: ");
