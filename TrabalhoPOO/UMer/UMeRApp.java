@@ -640,5 +640,22 @@ public class UMeRApp implements Serializable
         
         v.getMotorista().setDisp(true);
     }
+    
+    private static void top5Motoristas() {
+        Map<Double,Utilizador> motoristas = new TreeMap<Double,Utilizador>();
+        for(Utilizador u : umer.getUtilizadores().values())
+            if(u instanceof Motorista) {
+                double ganho = u.getHistorico().getViagens().stream().mapToDouble(v->v.calculaGanho()).sum();
+                motoristas.put(ganho,u);
+            }
+        List<Utilizador> lista = new ArrayList<Utilizador>();
+        lista = motoristas.values().stream().collect(Collectors.toList());
+        int i;
+        int c;
+        for(i=lista.size()-1,c=0;c<5;i--,c++)
+            System.out.println(lista.get(i).getNome());
+    }
+    
+   
 }
 
