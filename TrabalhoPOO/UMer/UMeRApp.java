@@ -602,7 +602,7 @@ public class UMeRApp implements Serializable
             double dist =a.getLocalizacao().calculaDist(loc);
             if(distmin==-1 || distmin>dist) {
                 distmin=dist;
-                v=a.clone();
+                v=a;
             } 
         }
         v.getMotorista().setDisp(false);
