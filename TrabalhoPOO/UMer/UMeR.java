@@ -68,11 +68,11 @@ public class UMeR implements Serializable{
    public Utilizador getUser(){
        if(user instanceof Cliente){
            Cliente c = (Cliente) user;
-           return c.clone();
+           return c;
        }
        if(user instanceof Motorista){
            Motorista m = (Motorista) user;
-           return m.clone();
+           return m;
        }
        
        return null;
@@ -83,7 +83,7 @@ public class UMeR implements Serializable{
        empresa = new TreeMap<String,Empresa>();
        
        for(Map.Entry<String,Empresa> entry: this.empresa.entrySet())
-            empresa.put(entry.getKey(),entry.getValue().clone());
+            empresa.put(entry.getKey(),entry.getValue());
             
        return empresa;
    }
@@ -93,7 +93,7 @@ public class UMeR implements Serializable{
        veiculo = new TreeMap<String,Veiculo>();
        
        for(Map.Entry<String,Veiculo> entry: this.veiculo.entrySet())
-            veiculo.put(entry.getKey(),entry.getValue().clone());
+            veiculo.put(entry.getKey(),entry.getValue());
        
        return veiculo;
    }
@@ -103,7 +103,7 @@ public class UMeR implements Serializable{
        utilizadores = new TreeMap<String,Utilizador>();
        
        for(Map.Entry<String,Utilizador> entry: this.utilizadores.entrySet())
-            utilizadores.put(entry.getKey(),entry.getValue().clone());
+            utilizadores.put(entry.getKey(),entry.getValue());
             
        return utilizadores;
    }
@@ -121,21 +121,21 @@ public class UMeR implements Serializable{
    public void setUtilizadores(Map<String,Utilizador> utilizadores){
        this.utilizadores = new TreeMap<String,Utilizador>();
        for(Map.Entry<String,Utilizador> entry: utilizadores.entrySet())
-            this.utilizadores.put(entry.getKey(), entry.getValue().clone());
+            this.utilizadores.put(entry.getKey(), entry.getValue());
    }
    
    //Veiculo da UMeR
    public void setVeiculo(Map<String,Veiculo> veiculo){
        this.veiculo = new TreeMap<String,Veiculo>();
        for(Map.Entry<String,Veiculo> entry: veiculo.entrySet())
-            this.veiculo.put(entry.getKey(), entry.getValue().clone());
+            this.veiculo.put(entry.getKey(), entry.getValue());
    }
    
    //Empresa
     public void setEmpresa(Map<String,Empresa> empresa){
        this.empresa = new TreeMap<String,Empresa>();
        for(Map.Entry<String,Empresa> entry: empresa.entrySet())
-            this.empresa.put(entry.getKey(), entry.getValue().clone());
+            this.empresa.put(entry.getKey(), entry.getValue());
    }
    
    //Clone da UMeR

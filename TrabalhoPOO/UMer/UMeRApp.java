@@ -216,8 +216,8 @@ public class UMeRApp implements Serializable
             switch(mSolicitar.getOpcao()){
                 case 1: solTaxiProx();
                         break;
-             //   case 2: solTaxiEsp();
-               //         break;
+                case 2: solTaxiEsp();
+                        break;
             }
         }while(mSolicitar.getOpcao() != 0);
     }
@@ -602,7 +602,7 @@ public class UMeRApp implements Serializable
             double dist =a.getLocalizacao().calculaDist(loc);
             if(distmin==-1 || distmin>dist) {
                 distmin=dist;
-                v=a.clone();
+                v=a;
             } 
         }
         v.getMotorista().setDisp(false);
@@ -681,6 +681,31 @@ public class UMeRApp implements Serializable
         Empresa e = new Empresa(nome,capacidade,motocap);
         umer.getEmpresa().put(nome,e);
         
+        System.out.println("Empresa registada com sucesso");
+    }
+    
+    private static void solTaxiEsp() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Indique a coordenada x do local de entrada: ");
+        double xi = scan.nextDouble();        
+        System.out.println("Indique a coordenada y do local de entrada: ");
+        double yi = scan.nextDouble();
+        double distmin=-1;
+        System.out.println("Indique a matricula do veiculo que pretende: ");
+        String mat = scan.nextLine();
+        Veiculo v = umer.getVeiculo().get(mat);
+        Localizacao loc = new Localizacao(xi,yi);
+        Cliente c = (Cliente) umer.getUser();
+        c.setLocalizacao(loc);
         
+        v.getMotorista().setDisp(false);
+        double tempo=distmin/v.getVMed();
+        
+        if (v.getFila().size()==0) {
+        System.out.println("O táxi demorará cerda de "+ tempo +"minutos a chegar.");
+        //wait(tempo*1000);
+        fazerViagem(v,c);
+    }
+    else v.getFila().add(c);
     }
 }

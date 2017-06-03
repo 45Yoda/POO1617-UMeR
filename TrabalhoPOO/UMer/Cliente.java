@@ -31,7 +31,7 @@ public class Cliente extends Utilizador implements Serializable{
    
    //sets
    public void setLocalizacao(Localizacao p){
-       this.localizacao = p.clone();
+       this.localizacao = p;
    }
    
    

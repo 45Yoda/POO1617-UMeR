@@ -86,13 +86,13 @@ public class Motorista extends Utilizador implements Serializable{
    
    public void setVeiculo(Veiculo v) {
        if (this.veiculo!=null) this.veiculo.setUso(false);
-       this.veiculo=v.clone();
+       this.veiculo=v;
        if (this.veiculo!=null) this.veiculo.setUso(true);
     }
     
    public void setEmpresa(Empresa e) {
        if (this.empresa!=null) this.empresa.getMotoristas().remove(this);
-       this.empresa=e.clone();
+       this.empresa=e;
        if (this.empresa!=null) this.empresa.getMotoristas().add(this);
     }
    //Método clone

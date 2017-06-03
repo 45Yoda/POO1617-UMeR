@@ -118,7 +118,7 @@ public abstract class Veiculo implements Serializable{
    }
    
    public void insereFila(Cliente next){
-       this.filaEspera.add(next.clone());
+       this.filaEspera.add(next);
    }
 
    public void setUso(boolean uso) {
@@ -130,7 +130,7 @@ public abstract class Veiculo implements Serializable{
    }
    
    public void setHistorico(Historico h){
-       this.historico = h.clone();
+       this.historico = h;
    }
    
    public void setMotorista(Motorista m){

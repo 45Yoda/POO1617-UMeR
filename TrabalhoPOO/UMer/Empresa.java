@@ -50,7 +50,7 @@ public class Empresa{
     public List<Veiculo> getTaxis(){
         List<Veiculo> aux = new ArrayList<Veiculo>(this.capacidade);
         for(Veiculo v: this.taxis)
-            aux.add(v.clone());
+            aux.add(v);
                 
         return aux;
     }
@@ -58,7 +58,7 @@ public class Empresa{
     public List<Motorista> getMotoristas(){
         List<Motorista> aux = new ArrayList<Motorista>(this.motocap);
         for(Motorista m: this.motoristas)
-            aux.add(m.clone());
+            aux.add(m);
         
         return aux;
     }
@@ -90,12 +90,12 @@ public class Empresa{
     
     public void setTaxis(List<Veiculo> taxis){
         for(Veiculo v: taxis)
-            this.taxis.add(v.clone());
+            this.taxis.add(v);
     }
     
     public void setMotoristas(List<Motorista> motoristas) {
          for(Motorista m: motoristas)
-            this.motoristas.add(m.clone());
+            this.motoristas.add(m);
     }
     
     public void setNVeiculos(int nveiculos){
@@ -117,14 +117,14 @@ public class Empresa{
     //Métodos auxiliares
     public void insereVeiculo(Veiculo v){
         if(!this.taxis.contains(v) && this.nveiculos < this.capacidade){
-            this.taxis.add(v.clone());
+            this.taxis.add(v);
             this.nveiculos++;
         }
     }
     
     public void insereMotorista(Motorista m) {
         if(!this.motoristas.contains(m) && this.nmotoristas<this.motocap) { 
-            this.motoristas.add(m.clone());
+            this.motoristas.add(m);
             this.nmotoristas++;
         }
     }
