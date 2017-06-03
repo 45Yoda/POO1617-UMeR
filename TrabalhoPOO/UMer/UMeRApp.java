@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.TreeMap;
 import java.time.LocalDate;
+import java.util.concurrent.TimeUnit;
 
 public class UMeRApp implements Serializable
 {
@@ -36,6 +37,7 @@ public class UMeRApp implements Serializable
      private static void carregaMenus(){
         String [] principal = {"Iniciar Sessão",
                                "Registar Utilizador",
+                               "Registar Empresa",
                                "Lista de Empresas",
                                "Top 10 Clientes",
                                "Top 5 Motoristas"};
@@ -57,7 +59,7 @@ public class UMeRApp implements Serializable
                                
         String [] motoristaEmp ={"Adicionar Veiculo",
                                  "Associar Veiculo",
-                                 "Associar Veivulo a empresa",
+                                 "Associar Veiculo a empresa",
                                  "Consultar Historico",
                                  "Lista de Motoristas da Empresa",
                                  "Lista de Viaturas duma Empresa",
@@ -106,11 +108,13 @@ public class UMeRApp implements Serializable
                         break;
                 case 2: registaUtilizador(); 
                         break;
-                case 3: listaEmpresas(); 
+                case 3: registaEmpresa();
                         break;
-                case 4: top10Clientes(); 
+                case 4: listaEmpresas(); 
                         break;
-                case 5: top5Motoristas(); 
+                case 5: top10Clientes(); 
+                        break;
+                case 6: top5Motoristas(); 
                         break;
            } 
         }while(mMain.getOpcao() != 0); 
@@ -221,7 +225,6 @@ public class UMeRApp implements Serializable
     /*****************************************************menuP*****************************************************/  
     private static void registaUtilizador(){
         String email,nome,password,morada,data;
-        Utilizador uti = null;
         Scanner input = new Scanner(System.in);
         mRegistos.executa();
         
@@ -244,9 +247,9 @@ public class UMeRApp implements Serializable
             case 0: input.close();
                     System.out.println("Cancelou o registo");
                     return;
-            case 1: uti = new Cliente();
+            case 1: Cliente uti = new Cliente();
                     break;
-            case 2: uti = new Motorista();
+            case 2: Motorista uti = new Motorista();
                     break;
         }
         
@@ -601,9 +604,9 @@ public class UMeRApp implements Serializable
             } 
         }
         v.getMotorista().setDisp(false);
-        double tempo=distmin/v.getVMed();
+        int tempo=(int) distmin/v.getVMed();
         System.out.println("O táxi demorará cerda de "+ tempo +"minutos a chegar.");
-        //wait(tempo*1000);
+
         fazerViagem(v,c);
     }
     
@@ -622,7 +625,6 @@ public class UMeRApp implements Serializable
         c.setLocalizacao(loc);
         v.setLocalizacao(loc);
         
-        //relatorio -> podia ser getdata.now();
         System.out.println("Insira os seguintes dados da viagem");
         System.out.println("Dia: ");
         int diaIni = scan.nextInt();
@@ -632,15 +634,18 @@ public class UMeRApp implements Serializable
         int anoIni = scan.nextInt();
         LocalDate data = LocalDate.of(anoIni,mesIni,diaIni);
         
-        //calcular preco e tempo real
+        double tempReal = umer.calculaTempo(dist,v);
+        double precoReal = umer.calculaPreco(dist,tempReal,v);
         
-        Viagem viagem= new Viagem(preco,c.getLocalizacao(),loc,v.getMotorista(),c,v,data,tempo);
+        Viagem viagem= new Viagem(precoReal,c.getLocalizacao(),loc,v.getMotorista(),c,v,data,tempReal);
         
         v.getMotorista().getHistorico().addViagem(viagem);
         c.getHistorico().addViagem(viagem);
         v.getHistorico().addViagem(viagem);
         
         v.getMotorista().setDisp(true);
+        
+    
     }
     
     private static void top5Motoristas() {
