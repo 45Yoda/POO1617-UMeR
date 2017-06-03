@@ -12,6 +12,7 @@ public class UMeR
    private Map<Veiculo,Motorista> motorista;
    private Map<String,Empresa> empresa;//nome da empresa
    private Utilizador user;
+   private Fator fator;
    
    public UMeR(){
        this.utilizadores = new TreeMap<String,Utilizador>();
@@ -183,7 +184,7 @@ public class UMeR
    
    /**Abre os dados**/
    public static UMeR initApp() throws IOException, ClassNotFoundException{
-       ObjectInputStream ois = new ObjectInputStream(new FileInputStream("dadosUMeR.txt"));
+       ObjectInputStream ois = new ObjectInputStream(new FileInputStream("dadosUMeR.data"));
        UMeR umer = (UMeR) ois.readObject();
        ois.close();
        return umer;
@@ -192,7 +193,7 @@ public class UMeR
    
    /****Gravar****/
    public void gravar() throws IOException{
-       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("dadosUMeR.txt"));
+       ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("dadosUMeR.data"));
        oos.writeObject(this);
        
        oos.flush();
