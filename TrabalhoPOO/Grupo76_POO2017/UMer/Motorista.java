@@ -17,17 +17,17 @@ public class Motorista extends Utilizador implements Serializable{
        this.grauC = 0;
        this.classificacao = 0;
        this.kmsTotal = 0;
-       this.disponibilidade = false;
+       this.disponibilidade = true;
        this.veiculo=null;
        this.empresa=null;
    }
    
-   public Motorista(String email,String nome, String pass, String morada, String data, int grau, int classif,double kmsT, boolean disp){
+   public Motorista(String email,String nome, String pass, String morada, String data, int grau, int classif,double kmsT){
        super(email,nome,pass,morada,data);
        this.grauC = grau;
        this.classificacao = classif;
        this.kmsTotal = kmsT;
-       this.disponibilidade = disp;
+       this.disponibilidade = true;
        this.veiculo=null;
        this.empresa=null;
     }

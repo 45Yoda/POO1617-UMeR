@@ -373,7 +373,9 @@ public class UMeRApp implements Serializable
        
        List<Viagem> trips = new ArrayList<Viagem>();
        trips = h.getBetween(l1,l2);
-       for(int i=0;i<trips.size()-1;i++){
+       
+       //System.out.println(trips.get(0));
+       for(int i=0;i<trips.size();i++){
            System.out.println(trips.get(i));
        }        
     }
@@ -393,7 +395,7 @@ public class UMeRApp implements Serializable
             throw new EmpresaNaoExisteException("Esta Empresa não existe");
         
         umer.getEmpresa().get(nome).getMotoristas().add(m);
-               
+        m.setEmpresa(umer.getEmpresa().get(nome));
     }
     
 
@@ -600,6 +602,7 @@ public class UMeRApp implements Serializable
         lista = umer.getVeiculo().values().stream().
                 filter(p->p.getUso()==true && p.getMotorista().getDisp()==true).
                 collect(Collectors.toList());
+            
         for (Veiculo a : lista) {
             double dist =a.getLocalizacao().calculaDist(loc);
             if(distmin==-1 || distmin>dist) {
@@ -647,6 +650,8 @@ public class UMeRApp implements Serializable
         c.getHistorico().addViagem(viagem);
         v.getHistorico().addViagem(viagem);
         
+       
+        System.out.println("Chegou ao seu destino");
         v.getMotorista().setDisp(true);
     }
     

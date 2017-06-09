@@ -22,9 +22,9 @@ public abstract class Veiculo implements Serializable{
        this.fiabilidade = 0;
        this.matricula = " ";
        this.filaEspera = new ArrayList<>();
-       this.uso=false;
+       this.uso=true;
        this.localizacao = null;
-       this.historico=null;
+       this.historico=new Historico();
        this.motorista = null;
     }
    
@@ -34,9 +34,9 @@ public abstract class Veiculo implements Serializable{
        this.fiabilidade = this.getFiabilidade();
        this.matricula = matricula;
        this.filaEspera = new ArrayList<Cliente>();
-       this.uso=false;
+       this.uso=true;
        this.localizacao = l;
-       this.historico=null;
+       this.historico=new Historico();
        this.motorista = null;
    }
    

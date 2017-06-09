@@ -1,8 +1,8 @@
 import java.time.LocalDate;
 import java.lang.Math;
+import java.io.Serializable;
 
-
-public class Viagem{
+public class Viagem implements Serializable{
     private double preco;
     private Localizacao inicial;
     private Localizacao fim;

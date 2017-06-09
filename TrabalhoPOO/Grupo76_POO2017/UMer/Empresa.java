@@ -1,7 +1,8 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Empresa{
+public class Empresa implements Serializable{
     private String nomeEmpresa;
     private List<Veiculo> taxis;
     private int nveiculos; //numero veiculos na empresa

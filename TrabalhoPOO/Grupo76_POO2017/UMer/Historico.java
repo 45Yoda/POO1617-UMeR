@@ -6,8 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
 import java.util.Collections;
+import java.io.Serializable;
 
-public class Historico{
+public class Historico implements Serializable{
     private List<Viagem> viagens;
     
     

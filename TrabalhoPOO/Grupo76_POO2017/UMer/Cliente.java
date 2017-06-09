@@ -51,7 +51,8 @@ public class Cliente extends Utilizador implements Serializable{
        if(this==o) return true;
        if((o==null) || o.getClass() != this.getClass()) return false;
        Cliente c = (Cliente) o;
-       return c.getLocalizacao().equals(localizacao);
+       return super.equals(c) &&
+              c.getLocalizacao().equals(localizacao);
    }
 
    //Método toString

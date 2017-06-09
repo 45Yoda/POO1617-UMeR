@@ -15,7 +15,7 @@ public abstract class Utilizador implements Serializable{
        this.pass = " ";
        this.morada = " ";
        this.data = " ";
-       this.historico=null;
+       this.historico= new Historico();
    }
    
    public Utilizador(String mail, String name, String passw, String moradas, String date){
@@ -24,7 +24,7 @@ public abstract class Utilizador implements Serializable{
        this.pass = passw;
        this.morada = moradas;
        this.data = date;
-       this.historico=null;
+       this.historico=new Historico();
    }
     
    public Utilizador (Utilizador a){
